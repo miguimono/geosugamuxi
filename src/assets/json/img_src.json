@@ -1,0 +1,29 @@
+{
+    "type": "FeatureCollection",
+    "features": [
+        {
+            "name": "doble_marker",
+            "url": "../assets/icon/i_doble_marker.png"
+        },
+        {
+            "name": "geo_sugamuxi",
+            "url": "../assets/icon/i_geo_sugamuxi.png"
+        },
+        {
+            "name": "marker",
+            "url": "../assets/icon/i_marker.png"
+        },
+        {
+            "name": "polygon",
+            "url": "../assets/icon/i_polygon.png"
+        },
+        {
+            "name": "actor",
+            "url": "../assets/icon/actor.png"
+        },
+        {
+            "name": "experience",
+            "url": "../assets/icon/experience.png"
+        }
+    ]
+}

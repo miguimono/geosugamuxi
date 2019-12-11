@@ -1,0 +1,36 @@
+npm 6.9.0
+node 10.16.3
+vue 3.11.0
+
+
+
+install npm
+install node.js
+npm install vue
+npm install -g @vue/cli
+npm install -g npm  Actualizar npm
+
+vue create geoportal1
+install babel, vuex, router
+npm install vue bootstrap-vue bootstrap
+npm install --save axios vue-axios
+npm install leaflet vue2-leaflet --save
+npm insall pg
+npm install express --save
+npm install --save sequelize
+npm install pg-hstore
+npm install --save geojson
+
+npm i -S vue-info-card
+
+En BD  create extension postgis
+
+Instalacion:
+
+npm install
+
+npm run dev ejecuta npm run start y npm run serve
+
+npm run start ejecuta back-end
+npm run serve ejecuta front-end
+
