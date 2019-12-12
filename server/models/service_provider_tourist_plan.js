@@ -19,7 +19,7 @@ const service_provider_tourist_plan = sequelize.define(
       type: Sequelize.TEXT
     },
     price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.TEXT
     }
   },
   {}

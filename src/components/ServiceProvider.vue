@@ -79,7 +79,7 @@
                 bg-variant="white"
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
-                title="Servicios relacionados"
+                title="Servicios que se pueden preguntar"
               >
                 <div
                   :key="index"
@@ -171,8 +171,8 @@
             <b-card
               bg-variant="white"
               border-variant="light"
-              class="shadow p-2 mb-5 rounded"
-              title="Galeria fotográfica"
+              class="shadow p-2 mb-5 rounded text-center"
+              title="Conoce quien ofrece los servicios"
             >
               <Carousel :gallery_id="this.service_provider.id_photo" />
             </b-card>

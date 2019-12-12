@@ -71,6 +71,7 @@ module.exports = {
         }
 
         service_provider.push({
+          id_service_provider: municipality[i].service_providers[j].id_service_provider,
           name_service_provider: municipality[i].service_providers[j].name,
           services: service
         });
@@ -85,7 +86,7 @@ module.exports = {
         service_provider: service_provider
       });
     }
-    let get_municipality = GeoJSON.parse(data, { Point: "coordinates" });
+    let get_municipality = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_municipality);
   },
   async getMunicipalityByName(req, res) {
@@ -129,6 +130,7 @@ module.exports = {
           });
         }
         service_provider.push({
+          id_service_provider: municipality[i].service_providers[j].id_service_provider,
           name_service_provider: municipality[i].service_providers[j].name,
           services: service
         });
@@ -143,7 +145,7 @@ module.exports = {
         service_provider: service_provider
       });
     }
-    let get_municipality = GeoJSON.parse(data, { Point: "coordinates" });
+    let get_municipality = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_municipality);
   }
 };

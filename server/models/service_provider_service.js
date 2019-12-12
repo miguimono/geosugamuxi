@@ -13,13 +13,13 @@ const service_provider_service = sequelize.define(
       primaryKey: true
     },
     minimum_price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.TEXT
     },
     maximum_price: {
-      type: Sequelize.INTEGER
+      type: Sequelize.TEXT
     },
     capacity: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
   },
   {}

@@ -18,6 +18,15 @@
             border-variant="light"
             class="shadow p-2 mb-2 rounded"
           >
+            <template v-slot:modal-header="{ close }">
+              <b-button
+                size="sm"
+                variant="outline-info"
+                @click="helpHeritageSite()"
+                >?</b-button
+              >
+              <h3>{{ getTittle }}</h3>
+            </template>
             <div v-if="this.element.type">
               <b-card
                 title="Tipo de patrimonio"
@@ -72,12 +81,30 @@ export default {
   },
   data() {
     return {
-      element: null
+      element: null,
+      help_HeritageSite1:
+        "Consulte la información basica del patrimonio en el que se encuentra",
+      help_HeritageSite2:
+        "Puede acceder a unformación mas completa en la seccion 'Ver detalles'"
     };
   },
   methods: {
     setElement: function() {
       this.$router.push("heritage_site/" + this.element.name);
+    },
+    helpLayers() {
+      this.$bvToast.toast(`${this.help_HeritageSite2}`, {
+        title: "Mayor información",
+        autoHideDelay: 15000,
+        variant: "info",
+        toaster: "b-toaster-bottom-right"
+      }),
+        this.$bvToast.toast(`${this.help_HeritageSite1}`, {
+          title: "Informacio básica",
+          autoHideDelay: 10000,
+          variant: "info",
+          toaster: "b-toaster-bottom-right"
+        });
     }
   },
   created() {

@@ -11,6 +11,16 @@
         border-variant="light"
         class="shadow p-2 mb-2 rounded"
       >
+        <template v-slot:modal-header="{ close }">
+          <b-button
+            size="sm"
+            variant="outline-info"
+            @click="helpServiceProvider()"
+            >?</b-button
+          >
+          <h3>{{ getTittle }}</h3>
+        </template>
+
         <b-card
           bg-variant="white"
           border-variant="light"
@@ -34,9 +44,6 @@
                 </div>
                 <div v-if="this.element.contact_mail">
                   Correo: {{ this.element.contact_mail }}
-                </div>
-                <div v-if="this.element.contact_web">
-                  Web: {{ this.element.contact_web }}
                 </div>
               </b-card-text>
             </b-card>
@@ -87,7 +94,7 @@
                 <b-list-group-item variant="success">{{
                   service.name_service
                 }}</b-list-group-item>
-                <p/>
+                <p />
               </div>
             </b-list-group>
           </b-card>
@@ -115,12 +122,30 @@ export default {
   },
   data() {
     return {
-      element: null
+      element: null,
+      help_ServiceProvider1:
+        "Se puede observar información básica del prestador de servicios",
+      help_ServiceProvider2:
+        "En la parte inferior puede acceder una información mas detallada"
     };
   },
   methods: {
     setElement: function() {
       this.$router.push("service_provider/" + this.element.name);
+    },
+    helpServiceProvider() {
+      this.$bvToast.toast(`${this.help_ServiceProvider2}`, {
+        title: "Mayor información",
+        autoHideDelay: 15000,
+        variant: "info",
+        toaster: "b-toaster-bottom-left"
+      }),
+        this.$bvToast.toast(`${this.help_ServiceProvider1}`, {
+          title: "Información básica",
+          autoHideDelay: 10000,
+          variant: "info",
+          toaster: "b-toaster-bottom-left"
+        });
     }
   },
   mounted() {},

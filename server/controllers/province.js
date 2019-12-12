@@ -65,7 +65,7 @@ module.exports = {
         municipality: municipality
       });
     }
-    let get_province = GeoJSON.parse(data, { Point: "coordinates" });
+    let get_province = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_province);
   },
   async getProvinceByName(req, res) {
@@ -116,7 +116,7 @@ module.exports = {
         municipality: municipality
       });
     }
-    let get_province = GeoJSON.parse(data, { Point: "coordinates" });
+    let get_province = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_province);
   }
 };

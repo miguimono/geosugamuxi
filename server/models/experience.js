@@ -26,10 +26,10 @@ const experience = sequelize.define(
       type: Sequelize.TEXT
     },
     id_photo_360: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     id_gallery: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     }
   },
   {}

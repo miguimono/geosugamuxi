@@ -10,12 +10,23 @@
           :title="this.heritage_site.name"
         >
           <b-container fluid class="p-2 bg-default">
-            <b-card-group deck>
+            <b-card
+                bg-variant="white"
+                border-variant="light"
+                class="shadow p-2 mb-5 rounded "
+                :title="'Pertenece al patrimonio ' + this.heritage_site.type"
+              >
+                <div v-if="this.heritage_site.description">
+                  <b-card-text
+                    >{{ this.heritage_site.description }}
+                  </b-card-text>
+                </div>
+              </b-card>
               <b-card
                 bg-variant="white"
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
-                title="Experiencias relacionadas"
+                title="Experiencias que recorren este patrimonio"
               >
                 <div
                   :key="index"
@@ -25,7 +36,7 @@
                     <b-card
                       bg-variant="white"
                       border-variant="light"
-                      class="shadow p-2 mb-5 rounded text-center"
+                      class="shadow p-2 mb-5 rounded "
                       :title="experience.name_experience"
                     >
                       <b-card-text>{{ experience.short_history }} </b-card-text>
@@ -50,19 +61,8 @@
                 </div>
               </b-card>
 
-              <b-card
-                bg-variant="white"
-                border-variant="light"
-                class="shadow p-2 mb-5 rounded text-center"
-                :title="'Pertenece al patrimonio ' + this.heritage_site.type"
-              >
-                <div v-if="this.heritage_site.description">
-                  <b-card-text
-                    >{{ this.heritage_site.description }}
-                  </b-card-text>
-                </div>
-              </b-card>
-            </b-card-group>
+              
+      
           </b-container>
           <b-button squared block variant="success" @click="goBack()"
             >Volver</b-button

@@ -104,9 +104,16 @@
                   v-for="(service_provider, index) in municipality.properties
                     .service_provider"
                 >
-                  <b-list-group-item variant="success">{{
-                    service_provider.name_service_provider
-                  }}</b-list-group-item>
+                   <b-button
+                              variant="outline-success"
+                              pill
+                              block
+                              @click="
+                                goToServiceProvider(
+                                  service_provider.id_service_provider,
+                                  service_provider.name_service_provider)">
+                              {{service_provider.name_service_provider}}
+                            </b-button>
                   <p></p>
                 </div>
               </b-list-group>
@@ -132,23 +139,31 @@
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-5 rounded"
-              :title="province.properties.name_department"
+              :title="province.properties.name_province"
             >
-              <b-card-text>
-                Se pueden encontrar los siguientes municipios
-              </b-card-text>
-              <b-list-group>
-                <div
-                  :key="index"
-                  v-for="(municipality, index) in province.properties
-                    .municipality"
-                >
-                  <b-list-group-item variant="success">{{
-                    municipality.name_municipality
-                  }}</b-list-group-item>
-                  <p></p>
-                </div>
-              </b-list-group>
+              <div v-if="province.properties.municipality.length != 0">
+                <b-card-text>
+                  Se pueden encontrar los siguientes municipios
+                </b-card-text>
+                <b-list-group>
+                  <div
+                    :key="index"
+                    v-for="(municipality, index) in province.properties
+                      .municipality"
+                  >
+                    <b-list-group-item variant="success">{{
+                      municipality.name_municipality
+                    }}</b-list-group-item>
+                    <p></p>
+                  </div>
+                </b-list-group>
+              </div>
+              <div v-else>
+                <b-card-text>
+                  Por el momento no hay municipios asociados con las
+                  experiencias.
+                </b-card-text>
+              </div>
             </b-card>
           </div>
 
@@ -253,7 +268,7 @@ export default {
     },
     goToServiceProvider(id, name) {
       this.$store.commit("setIdElement", id);
-      this.$router.push("service_provider/" + name);
+      this.$router.push("/service_provider/" + name);
     }
   },
 

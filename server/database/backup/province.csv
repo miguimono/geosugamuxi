@@ -1,0 +1,14 @@
+﻿id_province;name;fk_department;geom;is_visible
+1;Sugamuxi;1;;
+2;Centro ;1;;
+3;Gutierrez;1;;
+4;La libertad;1;;
+5;Lengupá;1;;
+6;Márquez;1;;
+7;Neira;1;;
+8;Norte;1;;
+9;Occidente;1;;
+10;Oriente;1;;
+11;Ricaurte;1;;
+12;Tundama;1;;
+13;Valderrama;1;;

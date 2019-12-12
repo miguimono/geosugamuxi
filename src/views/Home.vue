@@ -80,7 +80,7 @@
                 bg-variant="white"
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
-                :title="getExperiences[this.rnd_ex].name"
+                :title="'Asómbrate con '+getExperiences[this.rnd_ex].name"
               >
                 <Carousel
                   :gallery_id="getExperiences[this.rnd_ex].id_gallery"

@@ -174,33 +174,47 @@ export default {
     helpLayers() {
       this.$bvToast.toast(`${this.help_layer3}`, {
         title: "Información de check",
-        autoHideDelay: 15000
+        autoHideDelay: 20000,
+        variant: "info",
+        toaster:"b-toaster-top-right"
       }),
         this.$bvToast.toast(`${this.help_layer2}`, {
           title: "Despliegue de información",
-          autoHideDelay: 10000
+          autoHideDelay: 15000,
+          variant: "info",
+          toaster:"b-toaster-top-right"
         }),
         this.$bvToast.toast(`${this.help_layer1}`, {
           title: "Selección de capas",
-          autoHideDelay: 5000
+          autoHideDelay: 10000,
+          variant: "info",
+          toaster:"b-toaster-top-right"
         });
     },
     helpMap() {
       this.$bvToast.toast(`${this.help_map4}`, {
         title: "Patrimonios",
-        autoHideDelay: 20000
+        autoHideDelay: 25000,
+        variant: "info",
+        toaster:"b-toaster-top-left"
       }),
         this.$bvToast.toast(`${this.help_map3}`, {
           title: "Prestadores de servicio",
-          autoHideDelay: 15000
+          autoHideDelay: 20000,
+          variant: "info",
+          toaster:"b-toaster-top-left"
         }),
         this.$bvToast.toast(`${this.help_map2}`, {
           title: "Mapa base",
-          autoHideDelay: 10000
+          autoHideDelay: 15000,
+          variant: "info",
+          toaster:"b-toaster-top-left"
         }),
         this.$bvToast.toast(`${this.help_map1}`, {
           title: "Movimiento",
-          autoHideDelay: 5000
+          autoHideDelay: 10000,
+          variant: "info",
+          toaster:"b-toaster-top-left"
         });
     }
   },

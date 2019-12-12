@@ -1,0 +1,76 @@
+﻿id_service_provider;id_service;minimum_price;maximum_price;capacity
+1;1;217.000;217.000;Tarifa promedio
+1;2;6500;35.000;70 personas
+1;3;13.500;24.000;
+2;1;20.000;60.000;25 personas
+3;1;15.000;50.000;25 personas
+4;1;60.000;70.000;4 personas
+5;1;15.000;70.000;77 personas
+5;2;200.000;35.000;200 personas
+6;1;60.000;70.000;Glamping: 2 personas, Cabaña: 10 personas
+7;1;10.000;40.000;Camping: 7 u 8 Carpas, Hotel: 40 a 50 personas
+7;2;7000;10.000;Únicamente para los huéspedes
+8;1;15.000;70.000;Camping: 40 personas, Hotel: 32 personas
+8;3;12.000;14.000;
+9;1;65.000;70.000;14 personas
+10;1;15.000;70.000;Camping: 25 personas, Hotel: 12 personas
+11;1;50.000;60.000;14 personas
+12;1;50.000;60.000;35 personas
+13;1;55.000;60.000;13 personas
+14;1;50.000;50.000;6 personas
+15;1;70.000;140.000;32 personas
+15;2;20.000;30.000;32 personas
+16;1;70.000;90.000;35 personas
+17;1;40.000;310.000;30 personas
+18;1;10.000;50.000;9 personas
+19;1;35.000;40.000;30 personas
+20;1;70.000;330.000;De 40 a 50 personas
+21;1;50.000;60.000;40 personas
+21;2;8000;20.000;60 personas
+22;1;105.000;250.000;35 personas
+23;1;30.000;40.000;12 personas
+24;1;30.000;40.000;15 personas.
+25;1;30.000;40.000;10 personas
+26;1;40.000;80.000;25 personas
+26;2;6000;12.000;Solo para huéspedes
+27;1;30.000;130.000;12 personas
+27;3;45.000;50.000;Depende de la actividad
+28;2;24.000;32.000;130 personas
+28;3;80.000;80.000;Lancha para 6 personas
+29;2;7000;22.000;50 personas
+29;3;10.000;150.000;Transporte Fluvial por grupos
+30;2;3000;20.000;44 personas
+31;2;10.000;40.000;120 personas
+32;2;7000;16.000;100 personas
+33;2;7000;35.000;40 personas
+34;2;10.000;50.000;100 personas
+35;2;9000;20.000;20 personas
+36;2;3000;20.000;50 personas
+37;2;4500;30.000;65 personas
+38;1;100.000;120.000;16 personas
+38;2;10.000;30.000;84 personas
+39;1;10.000;160.000;18 personas
+39;2;8000;32.000;60 personas
+40;2;8000;28.500;180 personas
+41;2;25.000;32.000;120 personas
+42;2;5000;32.000;80 personas
+43;2;7000;27.000;80 personas
+44;3;10.000;70.000;Depende de la actividad
+45;3;10.000;80.000;Depende de la actividad
+46;3;30.000;200.000;Depende de la actividad
+47;3;20.000;350.000;Depende de la actividad
+48;3;10.000;50.000;Depende de la actividad o la venta del producto artesanal
+49;3;25.000;100.000;Depende de la actividad
+50;3;3000;200.000;Depende del producto artesanal
+51;3;4000;250.000;Depende del producto artesanal
+52;3;20.000;50.000;Depende de la actividad
+53;3;5000;150.000;Depende del producto artesanal
+54;3;15.000;80.000;Depende de la actividad
+55;3;5000;50.000;Depende del producto artesanal
+56;3;10.000;50.000;Depende de la actividad
+57;3;30.000;150.000;Depende de la actividad
+58;3;30.000;150.000;Depende de la actividad
+59;3;Gratis;Gratis;Gratis
+60;3;3000;10.000;Depende de la actividad
+61;3;30.000;150.000;Depende de la actividad
+62;3;10.000;50.000;Depende de la actividad

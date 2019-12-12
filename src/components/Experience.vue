@@ -20,7 +20,7 @@
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-5 rounded"
-              title="Recomendaciones"
+              title="!Recomendaciones para tener en cuenta!"
             >
               <p class="mt-2">
                 {{ this.experience.recommendations }}
@@ -32,8 +32,8 @@
               <b-card
                 bg-variant="white"
                 border-variant="light"
-                class="shadow p-2 mb-5 rounded"
-                title="Patrimonios"
+                class="shadow p-2 mb-5 rounded text-center"
+                title="Lugares patrimonio de la humanidad"
               >
                 <div
                   v-for="(heritage_sites, index) in experience.heritage_sites"
@@ -60,8 +60,8 @@
               <b-card
                 bg-variant="white"
                 border-variant="light"
-                class="shadow p-2 mb-5 rounded"
-                title="Servicios"
+                class="shadow p-2 mb-5 rounded text-center"
+                title="Facilita tu experiencia con estos servicios"
               >
                 <div
                   v-for="(service, index) in experience.services"
@@ -72,10 +72,14 @@
                     variant="outline-success"
                     pill
                     @click="goToService(service.name_service)"
+                    :id="service.name_service"
                   >
-                    Disfruta de la {{ service.name_service }} de tipo
-                    {{ service.type }}
+                    Disfruta del servicio de {{ service.name_service }}
                   </b-button>
+                  <b-tooltip variant="info"
+                            placement="rightbottom" :target="service.name_service" triggers="hover">
+                    {{ service.type }}
+                  </b-tooltip>
                   <p></p>
                 </div>
               </b-card>
@@ -85,8 +89,8 @@
             <b-card
               bg-variant="white"
               border-variant="light"
-              class="shadow p-2 mb-5 rounded"
-              title="Galeria fotografica"
+              class="shadow p-2 mb-5 rounded text-center"
+              title="Sorprendete con la belleza de esta experiencia"
             >
               <Carousel :gallery_id="this.experience.id_gallery" />
             </b-card>
@@ -95,8 +99,8 @@
             <b-card
               bg-variant="white"
               border-variant="light"
-              class="shadow p-2 mb-5 rounded"
-              title="Recorrido virtual"
+              class="shadow p-2 mb-5 rounded text-center"
+              title="Realiza una inmersion virtual"
             >
               <Photo360 :photo_src="this.experience.id_photo_360" />
             </b-card>

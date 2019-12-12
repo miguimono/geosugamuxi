@@ -29,7 +29,7 @@ const service_provider = sequelize.define(
       type: Sequelize.TEXT
     },
     contact_name: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     contact_cell: {
       type: Sequelize.STRING
@@ -41,7 +41,7 @@ const service_provider = sequelize.define(
       type: Sequelize.STRING
     },
     contact_web: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     sector: {
       type: Sequelize.STRING
@@ -50,7 +50,7 @@ const service_provider = sequelize.define(
       type: Sequelize.STRING
     },
     id_photo: {
-      type: Sequelize.STRING
+      type: Sequelize.TEXT
     },
     geom: {
       type: Sequelize.GEOMETRY

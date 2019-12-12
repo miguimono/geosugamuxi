@@ -12,15 +12,11 @@
           title="Experiencia"
         >
           <b-card-text>
-            El turismo rural es aquélla actividad de viajar a las áreas rurales
-            (en sentido amplio) con finalidades múltiples, por lo tanto es un
-            concepto analítico multidimensional: económico, jurídico, gerencial
-            y fenomenológico. La investigación sobre turismo rural debe
-            realizarse a partir de su definición, de su naturaleza y de sus
-            dimensiones. La autenticidad existencial es un concepto
-            fenomenológico que resultó útil para el estudio de cualquier
-            experiencia, incluyendo la del turismo rural, que es una experiencia
-            significativa o existencial.
+            Las experiencias en turismo rural vinculan un número significativo
+            de patrimonios naturales y culturales -del tipo material e
+            inmaterial- que dan cuenta de la valoración, manejo y protección de
+            bienes y manifestaciones territoriales históricas, que forjan la
+            identidad y la apropiación espacial en una región.
           </b-card-text>
 
           <div v-for="(experience, index) in this.experiences" :key="index">
@@ -79,6 +75,7 @@
                             block
                             variant="outline-success"
                             pill
+                            :id="heritage_sites.name_heritage_site"
                             @click="
                               goToHeritageSite(
                                 heritage_sites.id_heritage_site,
@@ -88,8 +85,15 @@
                           >
                             {{ heritage_sites.name_heritage_site }}
                           </b-button>
-
                           <p></p>
+                          <b-tooltip
+                            variant="info"
+                            placement="leftbottom"
+                            :target="heritage_sites.name_heritage_site"
+                            triggers="hover"
+                          >
+                            Patrimonio {{ heritage_sites.type_heritage_site }}
+                          </b-tooltip>
                         </div>
                       </b-list-group>
                     </b-card>
@@ -109,10 +113,19 @@
                             variant="outline-success"
                             pill
                             @click="goToService(service.name_service)"
+                            :id="service.name_service"
                           >
                             El servicio de {{ service.name_service }} cuenta con
-                            {{ service.type }}, {{ service.description }}
+                            {{ service.description }}
                           </b-button>
+                          <b-tooltip
+                            variant="info"
+                            placement="rightbottom"
+                            :target="service.name_service"
+                            triggers="hover"
+                          >
+                            {{ service.type }}
+                          </b-tooltip>
                           <p></p>
                         </div>
                       </b-list-group>

@@ -61,9 +61,16 @@
                               .properties.service_provider"
                             :key="index"
                           >
-                            <b-list-group-item variant="success">{{
-                              service_provider.name_service_provider
-                            }}</b-list-group-item>
+                            <b-button
+                              variant="outline-success"
+                              pill
+                              block
+                              @click="
+                                goToServiceProvider(
+                                  service_provider.id_service_provider,
+                                  service_provider.name_service_provider)">
+                              {{service_provider.name_service_provider}}
+                            </b-button>
                             <p></p>
                           </div>
                         </b-list-group>
@@ -105,6 +112,10 @@ export default {
   methods: {
     goBack: function() {
       window.history.back();
+    },
+    goToServiceProvider(id, name) {
+      this.$store.commit("setIdElement", id);
+      this.$router.push("service_provider/" + name);
     }
   },
   created: function() {
