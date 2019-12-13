@@ -4,10 +4,7 @@
       <Navbar />
     </div>
     <b-container fluid class="bg-light">
-      <div v-if="this.loading" class="mx-auto bg-success" style="width: 100px;">
-        <Circle8></Circle8>
-      </div>
-      <div v-else>
+      <div v-if="this.getPrincipalLayers != null">
         <b-row>
           <b-col md="10" offset-md="1">
             <div>
@@ -26,25 +23,43 @@
 <script>
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Circle8 } from "vue-loading-spinner";
+import { mapGetters } from "vuex";
 export default {
   name: "App",
   data() {
     return {
-      loading: false
+      loading: false,
+      componentKey: 0
     };
   },
   components: {
     Navbar,
-    Footer
+    Footer,
+    Circle8
+  },
+
+  beforeCreate: function() {
+    try {
+      this.$store.dispatch("loadBaseMap");
+      this.$store.dispatch("loadPrincipalLayers");
+      console.log("Capas principales");
+    } catch (error) {
+      console.log("No se ha podido cargar capa primaria");
+    }
   },
   created: function() {
     try {
-      this.$store.dispatch("loadBaseMap");
-      this.$store.dispatch("loadLayers");
-      this.loading = false;
+      this.$store.dispatch("loadSecondaryLayers");
+      console.log("Capas secundarias");
     } catch (error) {
-      this.loading = true;
+      console.log("No se ha podido cargar capa secundaria");
     }
+  },
+  methods: {},
+
+  computed: {
+    ...mapGetters(["getTitle", "getPrincipalLayers"])
   }
 };
 </script>

@@ -9,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   //Estado inicial de cada elemento que se utilizara de forma general en el proyecto
   state: {
-    tittle: "GeoSugamuxi",
+    title: "Experiencia rural Sugamuxi",
 
     base_map: null,
 
@@ -37,12 +37,12 @@ export default new Vuex.Store({
     is_visible_service_providers: true,
     is_visible_heritage_sites: true,
 
-    is_visible_departamental_roads: true,
-    is_visible_populated_center_sugamuxi: true,
+    is_visible_departamental_roads: false,
+    is_visible_populated_center_sugamuxi: false,
     
-    is_visible_municipalities: true,
-    is_visible_provinces: true,
-    is_visible_departments: true,
+    is_visible_municipalities: false,
+    is_visible_provinces: false,
+    is_visible_departments: false,
     is_visible_projects: true
   },
   //Realiza cambios en los estados
@@ -213,13 +213,14 @@ export default new Vuex.Store({
     async loadBaseMap(mutations) {
       await mutations.commit("loadBaseMap");
     },
-    async loadLayers(mutations) {
+    async loadPrincipalLayers(mutations) {
       await mutations.commit("loadServiceProviders");//Cargar prestadores de servicio
       await mutations.commit("loadHeritageSites");//Cargar patrimonios
 
       await mutations.commit("loadServices");//Cargar servicios
       await mutations.commit("loadExperiences");//Cargar experiencias
-
+    },
+    async loadSecondaryLayers(mutations) {
       await mutations.commit("loadMunicipalities");//Cargar municipios
       await mutations.commit("loadProvinces");//Cargar provincias
       await mutations.commit("loadDepartments");//Cargar departamentos
@@ -228,6 +229,7 @@ export default new Vuex.Store({
       await mutations.commit("loadDepartamentalRoads");//Cargar vias departamentales
       await mutations.commit("loadPopulatedCenterSugamuxi");//Cargar centro poblado
     },
+    
     updateIsVisible: function(mutations, name) {
       if (name == "Prestadores de servicio") {
         mutations.commit("isVisibleServiceProviders");
@@ -252,11 +254,33 @@ export default new Vuex.Store({
   //Metodo que debe ser llamado para obtener datos
   getters: {
     //return this.$store.getters.movies
-    getTittle: function(state) {
-      return state.tittle;
+    getTitle: function(state) {
+      return state.title;
     },
     getBaseMap(state) {
       return state.base_map;
+    },
+    getPrincipalLayers: function(state){
+      if(state.loadServiceProviders!= null && 
+        state.loadHeritageSites!= null && 
+        state.loadServices!= null && 
+        state.loadExperiences!= null){
+          return true;
+      }else{
+        return false;
+      }
+    },
+    getSecondaryLayers: function(state){
+      if(state.loadMunicipalities!= null &&
+        state.loadProvinces!= null &&
+        state.loadDepartments!= null &&
+        state.loadProjects!= null &&
+        state.loadDepartamentalRoads!= null &&
+        state.loadPopulatedCenterSugamuxi!= null){
+          return true;
+      }else{
+        return false;
+      }
     },
     getServiceProviders: state => {
       return state.service_providers;

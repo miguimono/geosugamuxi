@@ -10,7 +10,7 @@
             alt="logo"
             
           />
-          {{ getTittle }}</b-navbar-brand
+          {{ getTitle }}</b-navbar-brand
         >
 
         <b-collapse id="nav-collapse" is-nav>
@@ -52,7 +52,7 @@ import { mapGetters } from "vuex";
 export default {
   name: "Navbar",
   computed: {
-    ...mapGetters(["getTittle"])
+    ...mapGetters(["getTitle"])
   }
 };
 </script>

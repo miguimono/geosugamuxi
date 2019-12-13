@@ -1,3 +1,9 @@
+INSERT INTO department (id_department, name, geom, description)
+SELECT id_department, name, geom, description
+FROM polygon_departments
+
+
+
 copy service_experience (id_experience, id_service, description, type) FROM '/Users/mans/Downloads/ejemplo2.csv' DELIMITER ';' CSV;
 
 

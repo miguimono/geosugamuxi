@@ -239,7 +239,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getTittle", "getIdElement", "getServiceProviders"])
+    ...mapGetters(["getTitle", "getIdElement", "getServiceProviders"])
   }
 };
 </script>

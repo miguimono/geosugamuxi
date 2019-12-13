@@ -1,10 +1,10 @@
 <template>
   <div class="home">
     <b-container fluid class="p-2 bg-light">
-      <div v-if="loading">
+      <div v-if="this.loading == true">
         <Circle8 />
       </div>
-      <div v-else>
+      <div v-else-if="this.loading == false">
         <b-card bg-variant="light" border-variant="light" no-body>
           <b-card-group deck>
             <b-card no-body bg-variant="light" border-variant="light">
@@ -13,7 +13,7 @@
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
                 :title="
-                  'Descubre el ' + getHeritageSites[this.rnd_hs].properties.name
+                  'Conoce... ' + getHeritageSites[this.rnd_hs].properties.name
                 "
               >
                 <b-card-text>
@@ -34,7 +34,8 @@
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
                 :title="
-                  'Conoce a ' + getServiceProviders[this.rnd_sp].properties.name
+                  'Visita... ' +
+                    getServiceProviders[this.rnd_sp].properties.name
                 "
               >
                 <b-card-text>
@@ -58,29 +59,19 @@
               bg-variant="light"
               border-variant="light"
             >
-              <b-card
-                fluid
-                class="bg-light"
-                bg-variant="light"
-                border-variant="light"
+              <InfoCard
+                :type="true"
+                :headerFront="getExperiences[this.rnd_ex].name"
+                front="¡Disfrútala!"
+                :headerBack="getExperiences[this.rnd_ex].slogan"
+                :back="getExperiences[this.rnd_ex].short_history"
               >
-                <info-card
-                  :frontType="'text'"
-                  frontTitle="Disfruta de la experiencia"
-                  :frontData="getExperiences[this.rnd_ex].name"
-                  :backType="'text'"
-                  :backTitle="getExperiences[this.rnd_ex].slogan"
-                  :backData="getExperiences[this.rnd_ex].short_history"
-                />
-                <p />
-              </b-card>
-              <p />
+              </InfoCard>
               <b-card
                 fluid
                 bg-variant="white"
                 border-variant="light"
                 class="shadow p-2 mb-5 rounded"
-                :title="'Asómbrate con '+getExperiences[this.rnd_ex].name"
               >
                 <Carousel
                   :gallery_id="getExperiences[this.rnd_ex].id_gallery"
@@ -105,9 +96,9 @@
 
 <script>
 import Carousel from "@/components/Carousel.vue";
-import InfoCard from "vue-info-card";
 import { mapGetters } from "vuex";
 import { Circle8 } from "vue-loading-spinner";
+import InfoCard from "@/components/InfoCard.vue";
 
 export default {
   name: "Home",
@@ -118,7 +109,7 @@ export default {
   },
   data() {
     return {
-      loading: false,
+      loading: true,
       rnd_ex: null,
       rnd_hs: null,
       rnd_sp: null,
@@ -132,27 +123,35 @@ export default {
       this.getExperiences = this.$store.getters.getExperiences;
       this.getHeritageSites = this.$store.getters.getHeritageSites.features;
       this.getServiceProviders = this.$store.getters.getServiceProviders.features;
-      this.load_rnd();
-      this.loading = false;
+      console.log("Se cargaron las capas basicas");
     } catch (error) {
-      this.loading = true;
+      console.log("No se pudo cargar las capas basicas");
+    }
+  },
+  mounted: function() {
+    try {
+      this.load_rnd();
+      console.log("Se cargaron los numeros aleatorios");
+    } catch (error) {
+      console.log("No se pudo cargar los numeros aleatorios");
     }
   },
 
   methods: {
     load_rnd() {
-      this.loading = false;
       try {
-        this.loading = false;
         this.rnd_ex = Math.floor(Math.random() * this.getExperiences.length);
         this.rnd_hs = Math.floor(Math.random() * this.getHeritageSites.length);
-        this.rnd_sp = Math.floor(
+        (this.rnd_sp = Math.floor(
           Math.random() * this.getServiceProviders.length
-        );
+        )),
+          (this.loading = false);
+        console.log("loading paso a false");
       } catch (error) {
         this.loading = true;
       }
     },
+
     goToExperiences() {
       this.$router.push("experiences");
     },
@@ -164,7 +163,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTittle"])
+    ...mapGetters(["getTitle"])
   }
 };
 </script>

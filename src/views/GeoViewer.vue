@@ -25,7 +25,7 @@
                 <b-button size="sm" variant="outline-info" @click="helpLayers()"
                   >?</b-button
                 >
-                <h3>{{getTittle}}</h3>
+                <h3>{{getTitle}}</h3>
               </template>
               <b-container fluid class="p-2 bg-white">
                 <div>
@@ -132,7 +132,7 @@ export default {
         "Al seleccionar un prestador de servicios puede ver su información basica y posterior mente ir a ver su descripcion detallada",
       help_map4:
         "Al seleccionar un patrimonio puede ver su información basica y posterior mente ir a ver su descripcion detallada",
-      loading: false,
+      loading: true,
       getServices: null,
       getExperiences: null,
 
@@ -149,7 +149,6 @@ export default {
     };
   },
   created: function() {
-    this.loading = false;
     try {
       this.getServices = this.$store.getters.getServices;
       this.getExperiences = this.$store.getters.getExperiences;
@@ -164,6 +163,7 @@ export default {
       this.getMunicipalities = this.$store.getters.getMunicipalities;
       this.getProvinces = this.$store.getters.getProvinces;
       this.getDepartments = this.$store.getters.getDepartments;
+      this.loading = false;
     } catch (error) {
       this.loading = true;
     }
@@ -220,7 +220,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getTittle",
+      "getTitle",
       "getVisibleServiceProviders",
       "getVisibleHeritageSites",
       "getVisibleDepartamentalRoads",

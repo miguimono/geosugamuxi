@@ -80,7 +80,6 @@ module.exports = {
         id_municipality: municipality[i].id_municipality,
         name_municipality: municipality[i].name,
         coordinates: municipality[i].geom.coordinates,
-        is_visible: municipality[i].province.department.is_visible,
         name_province: municipality[i].province.name,
         name_department: municipality[i].province.department.name,
         service_provider: service_provider
@@ -138,7 +137,6 @@ module.exports = {
       data.push({
         id_municipality: municipality[i].id_municipality,
         name_municipality: municipality[i].name,
-        is_visible_municipality: municipality[i].province.department.is_visible,
         coordinates: municipality[i].geom.coordinates,
         name_province: municipality[i].province.name,        
         name_department: municipality[i].province.department.name,

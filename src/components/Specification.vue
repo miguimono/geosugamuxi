@@ -274,7 +274,7 @@ export default {
 
   computed: {
     ...mapGetters([
-      "getTittle",
+      "getTitle",
       "getDepartamentalRoads",
       "getPopulatedCenterSugamuxi",
       "getMunicipalities",

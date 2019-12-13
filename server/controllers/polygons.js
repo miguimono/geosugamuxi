@@ -1,11 +1,11 @@
 var GeoJSON = require("geojson");
 
-var polygon_centro_poblado = require("../models/polygon_centro_poblado");
+var polygon_populated_center = require("../models/polygon_populated_center");
 var polygon_lagunas = require("../models/polygon_lagunas");
 
 module.exports = {
   async getPopulatedCenter(req, res) {
-    let populated_center_sugamuxi = await polygon_centro_poblado.findAll({
+    let populated_center_sugamuxi = await polygon_populated_center.findAll({
         attributes: [
             "id",
             "geom",

@@ -9,9 +9,6 @@ const department = sequelize.define('department', {
     name: {
       type: Sequelize.STRING,
     },
-    is_visible: {
-      type: Sequelize.BOOLEAN,
-    },
     geom: {
       type: Sequelize.GEOMETRY
     },

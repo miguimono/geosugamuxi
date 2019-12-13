@@ -228,7 +228,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getTittle",
+      "getTitle",
       "getBaseMap",
       "getServiceProviders",
       "getHeritageSites",

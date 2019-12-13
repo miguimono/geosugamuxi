@@ -77,7 +77,7 @@
                     Disfruta del servicio de {{ service.name_service }}
                   </b-button>
                   <b-tooltip variant="info"
-                            placement="rightbottom" :target="service.name_service" triggers="hover">
+                            placement="righttop" :target="service.name_service" triggers="hover">
                     {{ service.type }}
                   </b-tooltip>
                   <p></p>
@@ -100,7 +100,7 @@
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-5 rounded text-center"
-              title="Realiza una inmersion virtual"
+              title="Realiza una inmersión virtual"
             >
               <Photo360 :photo_src="this.experience.id_photo_360" />
             </b-card>
@@ -157,7 +157,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      "getTittle",
+      "getTitle",
       "getExperiences",
       "getIdElement",
       "getHeritageSites"

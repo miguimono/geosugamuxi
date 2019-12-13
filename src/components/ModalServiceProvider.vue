@@ -6,7 +6,7 @@
       <b-modal
         :id="'e' + iModal"
         scrollable
-        :title="getTittle"
+        :title="getTitle"
         bg-variant="white"
         border-variant="light"
         class="shadow p-2 mb-2 rounded"
@@ -18,7 +18,7 @@
             @click="helpServiceProvider()"
             >?</b-button
           >
-          <h3>{{ getTittle }}</h3>
+          <h3>{{ getTitle }}</h3>
         </template>
 
         <b-card
@@ -178,7 +178,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTittle", "getIdElement", "getServiceProviders"])
+    ...mapGetters(["getTitle", "getIdElement", "getServiceProviders"])
   }
 };
 </script>

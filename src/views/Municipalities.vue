@@ -97,6 +97,7 @@
 
 <script>
 import { Circle8 } from "vue-loading-spinner";
+import { mapGetters } from "vuex";
 export default {
   name: "Municipalities",
   data() {
@@ -125,6 +126,6 @@ export default {
     } catch (error) {
       this.loading = true;
     }
-  }
+  },
 };
 </script>

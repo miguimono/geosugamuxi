@@ -13,9 +13,6 @@ const province = sequelize.define('province', {
     fk_department:{
         type: Sequelize.INTEGER,
     },
-    is_visible: {
-      type: Sequelize.BOOLEAN,
-    },
     geom: {
       type: Sequelize.GEOMETRY
     },

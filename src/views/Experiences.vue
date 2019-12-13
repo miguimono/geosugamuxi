@@ -9,7 +9,7 @@
           bg-variant="white"
           border-variant="light"
           class="shadow p-4 mb-3 rounded"
-          title="Experiencia"
+          title="Experiencias significativas"
         >
           <b-card-text>
             Las experiencias en turismo rural vinculan un número significativo

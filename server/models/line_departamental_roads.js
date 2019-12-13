@@ -1,8 +1,8 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../database/database");
 
-const actor = sequelize.define(
-  "point_actor",
+const departamental_road = sequelize.define(
+  "line_departamental_roads",
   {
     id: {
       type: Sequelize.INTEGER,
@@ -17,4 +17,4 @@ const actor = sequelize.define(
   },
   {}
 );
-module.exports = actor;
+module.exports = departamental_road;

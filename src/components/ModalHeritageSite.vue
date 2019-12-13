@@ -5,7 +5,7 @@
       <b-modal
         :id="'a' + iModal"
         scrollable
-        :title="getTittle"
+        :title="getTitle"
         bg-variant="white"
         border-variant="light"
         class="shadow p-2 mb-2 rounded"
@@ -25,7 +25,7 @@
                 @click="helpHeritageSite()"
                 >?</b-button
               >
-              <h3>{{ getTittle }}</h3>
+              <h3>{{ getTitle }}</h3>
             </template>
             <div v-if="this.element.type">
               <b-card
@@ -136,7 +136,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getTittle", "getIdElement", "getHeritageSites"])
+    ...mapGetters(["getTitle", "getIdElement", "getHeritageSites"])
   }
 };
 </script>

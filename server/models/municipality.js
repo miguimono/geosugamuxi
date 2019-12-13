@@ -13,9 +13,6 @@ const municipality = sequelize.define('municipality', {
     fk_province:{
         type: Sequelize.INTEGER,
     },
-    is_visible: {
-      type: Sequelize.BOOLEAN,
-    },
     geom: {
       type: Sequelize.GEOMETRY
     },

@@ -113,7 +113,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getTittle", "getIdElement", "getHeritageSites"])
+    ...mapGetters(["getTitle", "getIdElement", "getHeritageSites"])
   }
 };
 </script>

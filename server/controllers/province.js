@@ -60,7 +60,6 @@ module.exports = {
         id_province: province[i].id_province,
         name_province: province[i].name,
         coordinates: province[i].geom.coordinates,
-        is_visible: province[i].is_visible,
         name_department: province[i].department.name,
         municipality: municipality
       });
@@ -111,7 +110,6 @@ module.exports = {
         id_province: province[i].id_province,
         name_province: province[i].name,
         coordinates: province[i].geom.coordinates,
-        is_visible: province[i].is_visible,
         name_department: province[i].department.name,
         municipality: municipality
       });
