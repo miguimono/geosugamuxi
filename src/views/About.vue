@@ -18,33 +18,43 @@
           </h5>
         </b-card-text>
         <b-card-text>
-          El desarrollo fue realizado en fomra conjunta por estudiantes, docentes,
-          administrativos y colaboradores de diferentes carreras, aplicando
-          múltiples técnicas de propias de su especialidad.
+          El desarrollo fue realizado en fomra conjunta por estudiantes,
+          docentes, administrativos y colaboradores de diferentes carreras,
+          aplicando múltiples técnicas de propias de su especialidad.
         </b-card-text>
         <b-card-group>
           <b-card no-body bg-variant="white" border-variant="white" class="p-3">
-            <div v-for="(l, index) in this.logo1" :key="index">
-              <InfoCard
-                :headerFront="l.headerFront"
-                :front="l.front"
-                :image="l.image"
-                :headerBack="l.headerBack"
-                :back="l.back"
-              >
-              </InfoCard>
+            <div
+              v-for="(l, index) in this.$store.getters.getAbout"
+              :key="index"
+            >
+              <div v-if="parImpar(index) == 1">
+                <InfoCard
+                  :headerFront="l.headerFront"
+                  :front="l.front"
+                  :image="require('@/assets/logos/' + l.image + '.png')"
+                  :headerBack="l.headerBack"
+                  :back="l.back"
+                >
+                </InfoCard>
+              </div>
             </div>
           </b-card>
           <b-card no-body bg-variant="white" border-variant="white" class="p-3">
-            <div v-for="(l, index) in this.logo2" :key="index">
-              <InfoCard
-                :headerFront="l.headerFront"
-                :front="l.front"
-                :image="l.image"
-                :headerBack="l.headerBack"
-                :back="l.back"
-              >
-              </InfoCard>
+            <div
+              v-for="(l, index) in this.$store.getters.getAbout"
+              :key="index"
+            >
+              <div v-if="parImpar(index) == 0">
+                <InfoCard
+                  :headerFront="l.headerFront"
+                  :front="l.front"
+                  :image="require('@/assets/logos/' + l.image + '.png')"
+                  :headerBack="l.headerBack"
+                  :back="l.back"
+                >
+                </InfoCard>
+              </div>
             </div>
           </b-card>
         </b-card-group>
@@ -59,6 +69,15 @@ import { mapGetters } from "vuex";
 export default {
   name: "About",
   components: { InfoCard },
+  created() {
+    this.$store.dispatch("loadAbout");
+  },
+  methods: {
+    parImpar(pos) {
+      var valor = parseInt(pos);
+      return valor % 2 ? 0 : 1;
+    }
+  },
   data() {
     return {
       title: this.getTitle,
@@ -202,6 +221,23 @@ export default {
             },
             {
               name: "Miguel17 ",
+              mail: "miguimono@gmail.com",
+              contribution: "Deesarrollo del geoporta"
+            }
+          ]
+        },
+        {
+          front: "SENA",
+          image: require("@/assets/logos/sena.png"),
+          headerBack: "Contacto",
+          back: [
+            {
+              name: "Miguel18",
+              mail: "miguimono@gmail.com",
+              contribution: "Deesarrollo del geoporta"
+            },
+            {
+              name: "Miguel19",
               mail: "miguimono@gmail.com",
               contribution: "Deesarrollo del geoporta"
             }

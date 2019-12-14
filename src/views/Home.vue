@@ -123,19 +123,18 @@ export default {
       this.getExperiences = this.$store.getters.getExperiences;
       this.getHeritageSites = this.$store.getters.getHeritageSites.features;
       this.getServiceProviders = this.$store.getters.getServiceProviders.features;
-      console.log("Se cargaron las capas basicas");
     } catch (error) {
-      console.log("No se pudo cargar las capas basicas");
+      console.log(error);
     }
   },
   mounted: function() {
     try {
       this.load_rnd();
-      console.log("Se cargaron los numeros aleatorios");
     } catch (error) {
-      console.log("No se pudo cargar los numeros aleatorios");
+      console.log(error);
     }
   },
+  setTimeout() {},
 
   methods: {
     load_rnd() {
@@ -146,7 +145,6 @@ export default {
           Math.random() * this.getServiceProviders.length
         )),
           (this.loading = false);
-        console.log("loading paso a false");
       } catch (error) {
         this.loading = true;
       }

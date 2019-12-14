@@ -171,7 +171,7 @@ export default {
     LTileLayer,
     LMarker,
     LPopup,
-    LIcon,
+    LIcon, 
     LControlScale,
     LPolygon,
     LPolyline,

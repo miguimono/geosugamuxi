@@ -5,8 +5,8 @@
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
         <b-navbar-brand :to="{ name: 'home' }">
           <img
-            src="../assets/iconset/icon.png"
-            class="d-inline-block align-top"
+            src="../assets/logo1/Icon_16x16@3x.png"
+            class="d-inline-block align-center"
             alt="logo"
             
           />

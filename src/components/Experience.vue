@@ -1,5 +1,14 @@
 <template>
   <div class="experience">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      variant="warning"
+      @dismiss-count-down="countDownChanged"
+    >
+      Desliza hacia abajo para ver mas información
+    </b-alert>
     <div v-if="this.experience">
       <b-container fluid class="p-2 bg-ligth">
         <b-card
@@ -76,8 +85,12 @@
                   >
                     Disfruta del servicio de {{ service.name_service }}
                   </b-button>
-                  <b-tooltip variant="info"
-                            placement="righttop" :target="service.name_service" triggers="hover">
+                  <b-tooltip
+                    variant="info"
+                    placement="righttop"
+                    :target="service.name_service"
+                    triggers="hover"
+                  >
                     {{ service.type }}
                   </b-tooltip>
                   <p></p>
@@ -85,6 +98,22 @@
               </b-card>
             </b-card-group>
           </b-container>
+
+          <b-container fluid>
+            <b-card
+              bg-variant="white"
+              border-variant="light"
+              class="shadow p-2 mb-5 rounded text-center"
+              title="Sorprendete con la belleza de esta experiencia"
+            >
+              <b-container fluid class="p-1 bg-dark">
+                <Gallery
+                  :images="this.$store.getters.getPhotosGallery"
+                ></Gallery>
+              </b-container>
+            </b-card>
+          </b-container>
+
           <b-container fluid>
             <b-card
               bg-variant="white"
@@ -95,7 +124,7 @@
               <Carousel :gallery_id="this.experience.id_gallery" />
             </b-card>
           </b-container>
-          <b-container fluid>
+          <!-- <b-container fluid>
             <b-card
               bg-variant="white"
               border-variant="light"
@@ -104,7 +133,7 @@
             >
               <Photo360 :photo_src="this.experience.id_photo_360" />
             </b-card>
-          </b-container>
+          </b-container>-->
           <b-button squared block variant="success" @click="goBack()"
             >Volver</b-button
           >
@@ -117,25 +146,41 @@
 import { mapGetters } from "vuex";
 import Carousel from "@/components/Carousel.vue";
 import Photo360 from "@/components/Photo360.vue";
+import Gallery from "vue-cover-gallery";
+
 export default {
   name: "Experience",
   components: {
     Carousel,
-    Photo360
+    Photo360,
+    Gallery
   },
   data() {
     return {
-      experience: null
+      experience: null,
+      images: this.$store.getters.getPhotos2,
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     };
   },
   created() {
+    this.showAlert();
     for (let index = 0; index < this.getExperiences.length; index++) {
       if (this.getExperiences[index].id_experience == this.getIdElement) {
         this.experience = this.getExperiences[index];
+        this.$store.commit("loadPhotos", this.experience.id_gallery);
       }
     }
   },
+
   methods: {
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
+    },
     goBack: function() {
       window.history.back();
     },

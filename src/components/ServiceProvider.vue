@@ -1,5 +1,14 @@
 <template>
   <div class="specification">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      variant="warning"
+      @dismiss-count-down="countDownChanged"
+    >
+      Desliza hacia abajo para ver mas información
+    </b-alert>
     <!-- Prestador de servicio -->
     <div v-if="this.service_provider">
       <b-container fluid class="p-2 bg-light">
@@ -198,10 +207,14 @@ export default {
   },
   data() {
     return {
-      service_provider: null
+      service_provider: null,
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     };
   },
   created() {
+    this.showAlert();
     for (
       let index = 0;
       index < this.getServiceProviders.features.length;
@@ -235,6 +248,12 @@ export default {
     },
     goToExperience(name) {
       this.$router.push("/experience/" + name);
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
     }
   },
 

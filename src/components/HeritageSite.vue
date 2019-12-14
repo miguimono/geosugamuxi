@@ -1,5 +1,14 @@
 <template>
   <div class="specification">
+    <b-alert
+      :show="dismissCountDown"
+      dismissible
+      fade
+      variant="warning"
+      @dismiss-count-down="countDownChanged"
+    >
+      Desliza hacia abajo para ver mas información
+    </b-alert>
     <!--Patrimonio-->
     <div v-if="this.heritage_site">
       <b-card-group fluid class="p-2 bg-ligth">
@@ -11,58 +20,53 @@
         >
           <b-container fluid class="p-2 bg-default">
             <b-card
-                bg-variant="white"
-                border-variant="light"
-                class="shadow p-2 mb-5 rounded "
-                :title="'Pertenece al patrimonio ' + this.heritage_site.type"
+              bg-variant="white"
+              border-variant="light"
+              class="shadow p-2 mb-5 rounded "
+              :title="'Pertenece al patrimonio ' + this.heritage_site.type"
+            >
+              <div v-if="this.heritage_site.description">
+                <b-card-text>{{ this.heritage_site.description }} </b-card-text>
+              </div>
+            </b-card>
+            <b-card
+              bg-variant="white"
+              border-variant="light"
+              class="shadow p-2 mb-5 rounded"
+              title="Experiencias que recorren este patrimonio"
+            >
+              <div
+                :key="index"
+                v-for="(experience, index) in this.heritage_site.experiences"
               >
-                <div v-if="this.heritage_site.description">
-                  <b-card-text
-                    >{{ this.heritage_site.description }}
-                  </b-card-text>
-                </div>
-              </b-card>
-              <b-card
-                bg-variant="white"
-                border-variant="light"
-                class="shadow p-2 mb-5 rounded"
-                title="Experiencias que recorren este patrimonio"
-              >
-                <div
-                  :key="index"
-                  v-for="(experience, index) in this.heritage_site.experiences"
-                >
-                  <b-card-group deck>
-                    <b-card
-                      bg-variant="white"
-                      border-variant="light"
-                      class="shadow p-2 mb-5 rounded "
-                      :title="experience.name_experience"
+                <b-card-group deck>
+                  <b-card
+                    bg-variant="white"
+                    border-variant="light"
+                    class="shadow p-2 mb-5 rounded "
+                    :title="experience.name_experience"
+                  >
+                    <b-card-text>{{ experience.short_history }} </b-card-text>
+                    <b-button
+                      :id="experience.name_experience"
+                      @click="
+                        goToExperience(
+                          experience.id_experience,
+                          experience.name_experience
+                        )
+                      "
+                      block
+                      pill
+                      size="sm"
+                      variant="outline-success"
+                      >Ver detalles de
+                      {{ experience.name_experience }}</b-button
                     >
-                      <b-card-text>{{ experience.short_history }} </b-card-text>
-                      <b-button
-                        :id="experience.name_experience"
-                        @click="
-                          goToExperience(
-                            experience.id_experience,
-                            experience.name_experience
-                          )
-                        "
-                        block
-                        pill
-                        size="sm"
-                        variant="outline-success"
-                        >Ver detalles de
-                        {{ experience.name_experience }}</b-button
-                      >
-                    </b-card>
-                  </b-card-group>
-                  <p></p>
-                </div>
-              </b-card>
-
-              
-      
+                  </b-card>
+                </b-card-group>
+                <p></p>
+              </div>
+            </b-card>
           </b-container>
           <b-button squared block variant="success" @click="goBack()"
             >Volver</b-button
@@ -84,10 +88,14 @@ export default {
   },
   data() {
     return {
-      heritage_site: null
+      heritage_site: null,
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     };
   },
   created() {
+    this.showAlert();
     for (
       let index = 0;
       index < this.getHeritageSites.features.length;
@@ -109,6 +117,12 @@ export default {
     goToExperience(id, name) {
       this.$store.commit("setIdElement", id);
       this.$router.push("/experience/" + name);
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
     }
   },
 

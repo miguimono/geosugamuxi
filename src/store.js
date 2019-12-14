@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 import axios from "axios";
 import base_map_json from "./assets/json/base_map.json";
+import about_json from "./assets/json/about.json";
 
 Vue.use(Vuex);
 
@@ -12,16 +13,17 @@ export default new Vuex.Store({
     title: "Experiencia rural Sugamuxi",
 
     base_map: null,
+    about:null,
 
     photos_user_id: "185677137@N07",
     photos_api_key_public: "1e1df81c321dab285182201462e86849",
     photos_api_key_private: "e965807805f2e3fe",
     photos: null,
 
-    id_element:null,
+    id_element: null,
 
     service_providers: null,
-    heritage_sites: null,    
+    heritage_sites: null,
 
     services: null,
     experiences: null,
@@ -33,13 +35,13 @@ export default new Vuex.Store({
 
     departamental_roads: null,
     populated_center_sugamuxi: null,
-    
+
     is_visible_service_providers: true,
     is_visible_heritage_sites: true,
 
     is_visible_departamental_roads: false,
     is_visible_populated_center_sugamuxi: false,
-    
+
     is_visible_municipalities: false,
     is_visible_provinces: false,
     is_visible_departments: false,
@@ -50,6 +52,9 @@ export default new Vuex.Store({
     //Se llama this.$store.commit("setId", id_service_provider);
     loadBaseMap: function(state) {
       state.base_map = base_map_json.features;
+    },
+    loadAbout: function(state) {
+      state.about = about_json.features;
     },
     async loadServiceProviders(state) {
       await axios
@@ -182,8 +187,8 @@ export default new Vuex.Store({
       state.is_visible_projects = !state.is_visible_projects;
     },
     loadPhotos: function(state, gallery_id) {
-      state.photos = null;
       if (gallery_id) {
+        state.photos = null;
         axios
           .get("https://api.flickr.com/services/rest", {
             params: {
@@ -213,23 +218,26 @@ export default new Vuex.Store({
     async loadBaseMap(mutations) {
       await mutations.commit("loadBaseMap");
     },
+    async loadAbout(mutations) {
+      await mutations.commit("loadAbout");
+    },
     async loadPrincipalLayers(mutations) {
-      await mutations.commit("loadServiceProviders");//Cargar prestadores de servicio
-      await mutations.commit("loadHeritageSites");//Cargar patrimonios
+      await mutations.commit("loadServiceProviders"); //Cargar prestadores de servicio
+      await mutations.commit("loadHeritageSites"); //Cargar patrimonios
 
-      await mutations.commit("loadServices");//Cargar servicios
-      await mutations.commit("loadExperiences");//Cargar experiencias
+      await mutations.commit("loadServices"); //Cargar servicios
+      await mutations.commit("loadExperiences"); //Cargar experiencias
     },
     async loadSecondaryLayers(mutations) {
-      await mutations.commit("loadMunicipalities");//Cargar municipios
-      await mutations.commit("loadProvinces");//Cargar provincias
-      await mutations.commit("loadDepartments");//Cargar departamentos
-      await mutations.commit("loadProjects");//Cargar proyectos
+      await mutations.commit("loadMunicipalities"); //Cargar municipios
+      await mutations.commit("loadProvinces"); //Cargar provincias
+      await mutations.commit("loadDepartments"); //Cargar departamentos
+      await mutations.commit("loadProjects"); //Cargar proyectos
 
-      await mutations.commit("loadDepartamentalRoads");//Cargar vias departamentales
-      await mutations.commit("loadPopulatedCenterSugamuxi");//Cargar centro poblado
+      await mutations.commit("loadDepartamentalRoads"); //Cargar vias departamentales
+      await mutations.commit("loadPopulatedCenterSugamuxi"); //Cargar centro poblado
     },
-    
+
     updateIsVisible: function(mutations, name) {
       if (name == "Prestadores de servicio") {
         mutations.commit("isVisibleServiceProviders");
@@ -245,7 +253,7 @@ export default new Vuex.Store({
         mutations.commit("isVisibleProvinces");
       } else if (name == "Departamentos") {
         mutations.commit("isVisibleDepartments");
-      }else if (name == "Proyectos") {
+      } else if (name == "Proyectos") {
         mutations.commit("isVisibleProjects");
       }
     }
@@ -260,25 +268,32 @@ export default new Vuex.Store({
     getBaseMap(state) {
       return state.base_map;
     },
-    getPrincipalLayers: function(state){
-      if(state.loadServiceProviders!= null && 
-        state.loadHeritageSites!= null && 
-        state.loadServices!= null && 
-        state.loadExperiences!= null){
-          return true;
-      }else{
+    getAbout(state) {
+      return state.about;
+    },
+    getPrincipalLayers: function(state) {
+      if (
+        state.loadServiceProviders != null &&
+        state.loadHeritageSites != null &&
+        state.loadServices != null &&
+        state.loadExperiences != null
+      ) {
+        return true;
+      } else {
         return false;
       }
     },
-    getSecondaryLayers: function(state){
-      if(state.loadMunicipalities!= null &&
-        state.loadProvinces!= null &&
-        state.loadDepartments!= null &&
-        state.loadProjects!= null &&
-        state.loadDepartamentalRoads!= null &&
-        state.loadPopulatedCenterSugamuxi!= null){
-          return true;
-      }else{
+    getSecondaryLayers: function(state) {
+      if (
+        state.loadMunicipalities != null &&
+        state.loadProvinces != null &&
+        state.loadDepartments != null &&
+        state.loadProjects != null &&
+        state.loadDepartamentalRoads != null &&
+        state.loadPopulatedCenterSugamuxi != null
+      ) {
+        return true;
+      } else {
         return false;
       }
     },
@@ -313,10 +328,10 @@ export default new Vuex.Store({
       return state.projects;
     },
     getDepartamentalRoads: state => {
-        return state.departamental_roads;
+      return state.departamental_roads;
     },
     getPopulatedCenterSugamuxi(state) {
-        return state.populated_center_sugamuxi;
+      return state.populated_center_sugamuxi;
     },
     getVisibleDepartamentalRoads: function(state) {
       return state.is_visible_departamental_roads;
@@ -339,9 +354,23 @@ export default new Vuex.Store({
     getPhotos: function(state) {
       return state.photos;
     },
+    getPhotosGallery: function(state) {
+      if (state.photos) {
+        var images = [];
+        for (let index = 0; index < state.photos.length; index++) {
+          images.push({
+            title: state.photos[index].title,
+            description: state.photos[index].ownername,
+            href: state.photos[index].url_n
+          });
+        }
+        return images;
+      } else {
+        return null;
+      }
+    },
     getIdElement: function(state) {
       return state.id_element;
-      
     }
   }
 });

@@ -79,7 +79,10 @@
         <b-list-group>
           <div v-for="(bk, index) in back" :key="index">
             <b-list-group-item :id="bk.name" variant="success">
-              <b>{{ bk.name }} </b>: {{ bk.mail }}
+              <b>{{ bk.name }} </b>
+            </b-list-group-item>
+            <b-list-group-item :id="bk.name" variant="white">
+              Contacto: {{ bk.mail }}
             </b-list-group-item>
             <p></p>
             <b-tooltip
@@ -127,7 +130,7 @@ export default {
     },
     headerFront: {
       type: String,
-      default: "Conoce a:"
+      default: "Conoce..."
     },
     headerBack: {
       type: String,

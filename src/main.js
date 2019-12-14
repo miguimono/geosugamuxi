@@ -30,6 +30,9 @@ Icon.Default.mergeOptions({
   shadowUrl: require('leaflet/dist/images/marker-shadow.png')
 });
 
+import 'bootstrap'; 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 new Vue({
   router,
   store,
