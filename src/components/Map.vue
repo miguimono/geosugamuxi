@@ -22,7 +22,7 @@
         <l-control-layers position="topright"></l-control-layers>
         <!-- Title-->
         <l-tile-layer
-          v-for="map in getBaseMap"
+          v-for="map in this.$store.getters.getBaseMap"
           :key="map.name"
           :name="map.name"
           :visible="map.visible"
@@ -32,9 +32,9 @@
         ></l-tile-layer>
 
         <!--Prestador de servicios-->
-        <div v-if="getServiceProviders && getVisibleServiceProviders">
+        <div v-if="this.service_providers && getVisibleServiceProviders">
           <l-marker
-            v-for="(service_provider, index) in getServiceProviders.features"
+            v-for="(service_provider, index) in this.service_providers"
             :key="service_provider.properties.name"
             :visible="service_provider.properties.is_visible"
             :lat-lng="[
@@ -47,7 +47,7 @@
               <b-button
                 pill
                 variant="outline-success"
-                v-b-modal="'e' + service_provider.properties.name"
+                v-b-modal="'sp' + service_provider.properties.name"
                 @click="
                   setServiceProvider(
                     service_provider.properties.id_service_provider,
@@ -61,15 +61,14 @@
               Prestador de servicios - {{ service_provider.properties.name }}
             </l-tooltip>
           </l-marker>
-          <div v-if="name_service_provider_modal">
-            <ModalServiceProvider :iModal="this.name_service_provider_modal" />
-          </div>
+
+          <ModalServiceProvider :iModal="this.name_service_provider_modal" />
         </div>
         <!--Patrimonio-->
 
-        <div v-if="getHeritageSites && getVisibleHeritageSites">
+        <div v-if="this.heritage_sites && getVisibleHeritageSites">
           <l-marker
-            v-for="(heritage_sites, index2) in getHeritageSites.features"
+            v-for="(heritage_sites, index2) in this.heritage_sites"
             :key="heritage_sites.properties.name"
             :visible="heritage_sites.properties.is_visible"
             :lat-lng="[
@@ -82,7 +81,7 @@
               <b-button
                 pill
                 variant="outline-success"
-                v-b-modal="'a' + heritage_sites.properties.name"
+                v-b-modal="'hs' + heritage_sites.properties.name"
                 @click="
                   setHeritageSite(
                     heritage_sites.properties.id_heritage_site,
@@ -96,30 +95,32 @@
               Patrimonio - {{ heritage_sites.properties.name }}</l-tooltip
             >
           </l-marker>
-          <div v-if="name_heritage_site_modal">
-            <ModalHeritageSite :iModal="this.name_heritage_site_modal" />
-          </div>
+
+          <ModalHeritageSite :iModal="this.name_heritage_site_modal" />
         </div>
-        <div v-if="getDepartamentalRoads && getVisibleDepartamentalRoads">
-          <l-geo-json :geojson="getDepartamentalRoads" />
+        <div v-if="this.$store.getters.getProjects && getVisibleProjects">
+          <l-geo-json :geojson="this.$store.getters.getProjects" />
         </div>
         <div
-          v-if="getPopulatedCenterSugamuxi && getVisiblePopulatedCenterSugamuxi"
+          v-if="
+            this.$store.getters.getMunicipalities && getVisibleMunicipalities
+          "
         >
-          <l-geo-json :geojson="getPopulatedCenterSugamuxi" />
+          <l-geo-json :geojson="this.$store.getters.getMunicipalities" />
         </div>
-
-        <div v-if="getProjects && getVisibleProjects">
-          <l-geo-json :geojson="getProjects" />
+        <div v-if="this.$store.getters.getProvinces && getVisibleProvinces">
+          <l-geo-json :geojson="this.$store.getters.getProvinces" />
         </div>
-        <div v-if="getMunicipalities && getVisibleMunicipalities">
-          <l-geo-json :geojson="getMunicipalities" />
+        <div v-if="this.$store.getters.getDepartments && getVisibleDepartments">
+          <l-geo-json :geojson="this.$store.getters.getDepartments" />
         </div>
-        <div v-if="getProvinces && getVisibleProvinces">
-          <l-geo-json :geojson="getProvinces" />
-        </div>
-        <div v-if="getDepartments && getVisibleDepartments">
-          <l-geo-json :geojson="getDepartments" />
+        <div
+          v-if="
+            this.$store.getters.getDepartamentalRoads &&
+              getVisibleDepartamentalRoads
+          "
+        >
+          <l-geo-json :geojson="this.$store.getters.getDepartamentalRoads" />
         </div>
       </l-map>
     </div>
@@ -152,8 +153,6 @@ export default {
       zoom: 11,
       center: L.latLng(5.6, -72.9),
       bounds: null,
-      name_service_provider_modal: null,
-      name_heritage_site_modal: null,
       iconServiceProvider: L.icon({
         iconUrl: require("../assets/icon/actor.png"),
         iconSize: [32, 32],
@@ -163,7 +162,11 @@ export default {
         iconUrl: require("../assets/icon/experience.png"),
         iconSize: [32, 32],
         iconAnchor: [16, 32]
-      })
+      }),
+      name_service_provider_modal: null,
+      name_heritage_site_modal: null,
+      service_providers: null,
+      heritage_sites: null
     };
   },
   components: {
@@ -171,7 +174,7 @@ export default {
     LTileLayer,
     LMarker,
     LPopup,
-    LIcon, 
+    LIcon,
     LControlScale,
     LPolygon,
     LPolyline,
@@ -181,6 +184,13 @@ export default {
     LGeoJson,
     ModalServiceProvider,
     ModalHeritageSite
+  },
+  beforeCreate: function() {
+    this.$store.dispatch("loadBaseMap");
+  },
+  created: function() {
+    this.service_providers = this.$store.getters.getServiceProviders.features;
+    this.heritage_sites = this.$store.getters.getHeritageSites.features;
   },
   methods: {
     latLng: function(lat, lng) {
@@ -197,33 +207,28 @@ export default {
     },
     setServiceProvider: function(id, name_service_provider) {
       this.name_service_provider_modal = name_service_provider;
-      for (
-        let index = 0;
-        index < this.getServiceProviders.features.length;
-        index++
-      ) {
-        if (
-          this.getServiceProviders.features[index].properties
-            .id_service_provider == id
-        ) {
-          this.$store.commit("setIdElement", id);
-        }
-      }
+      console.log(
+        "ID: " +
+          id +
+          " name: " +
+          name_service_provider +
+          " modal: " +
+          this.name_service_provider_modal
+      );
+      this.$store.commit("loadServiceProvidersById", id);
     },
+
     setHeritageSite: function(id, name_heritage_site) {
       this.name_heritage_site_modal = name_heritage_site;
-      for (
-        let index = 0;
-        index < this.getHeritageSites.features.length;
-        index++
-      ) {
-        if (
-          this.getHeritageSites.features[index].properties.id_heritage_site ==
-          id
-        ) {
-          this.$store.commit("setIdElement", id);
-        }
-      }
+      console.log(
+        "ID: " +
+          id +
+          " name: " +
+          name_heritage_site +
+          " modal: " +
+          this.name_heritage_site_modal
+      );
+      this.$store.commit("loadHeritageSitesById", id);
     }
   },
   computed: {
@@ -233,7 +238,6 @@ export default {
       "getServiceProviders",
       "getHeritageSites",
       "getDepartamentalRoads",
-      "getPopulatedCenterSugamuxi",
       "getMunicipalities",
       "getProvinces",
       "getDepartments",
@@ -242,7 +246,6 @@ export default {
       "getVisibleServiceProviders",
       "getVisibleHeritageSites",
       "getVisibleDepartamentalRoads",
-      "getVisiblePopulatedCenterSugamuxi",
       "getVisibleMunicipalities",
       "getVisibleProvinces",
       "getVisibleDepartments",

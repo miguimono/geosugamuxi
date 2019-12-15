@@ -1,32 +1,48 @@
 <template>
   <div class="specification">
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      variant="warning"
-      @dismiss-count-down="countDownChanged"
-    >
-      Desliza hacia abajo para ver mas información
-    </b-alert>
-    <!--Patrimonio-->
-    <div v-if="this.heritage_site">
+    <div v-if="this.$store.getters.getHeritageSite">
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        fade
+        variant="warning"
+        @dismiss-count-down="countDownChanged"
+      >
+        Desliza hacia abajo para ver mas información
+      </b-alert>
+
       <b-card-group fluid class="p-2 bg-ligth">
         <b-card
           bg-variant="white"
           border-variant="light"
           class="shadow p-2 mb-3 rounded "
-          :title="this.heritage_site.name"
+          :title="
+            this.$store.getters.getHeritageSite.features[0].properties.name
+          "
         >
           <b-container fluid class="p-2 bg-default">
             <b-card
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-5 rounded "
-              :title="'Pertenece al patrimonio ' + this.heritage_site.type"
+              :title="
+                'Pertenece al patrimonio ' +
+                  this.$store.getters.getHeritageSite.features[0].properties
+                    .type
+              "
             >
-              <div v-if="this.heritage_site.description">
-                <b-card-text>{{ this.heritage_site.description }} </b-card-text>
+              <div
+                v-if="
+                  this.$store.getters.getHeritageSite.features[0].properties
+                    .description
+                "
+              >
+                <b-card-text
+                  >{{
+                    this.$store.getters.getHeritageSite.features[0].properties
+                      .description
+                  }}
+                </b-card-text>
               </div>
             </b-card>
             <b-card
@@ -37,7 +53,8 @@
             >
               <div
                 :key="index"
-                v-for="(experience, index) in this.heritage_site.experiences"
+                v-for="(experience, index) in this.$store.getters
+                  .getHeritageSite.features[0].properties.experiences"
               >
                 <b-card-group deck>
                   <b-card
@@ -96,18 +113,6 @@ export default {
   },
   created() {
     this.showAlert();
-    for (
-      let index = 0;
-      index < this.getHeritageSites.features.length;
-      index++
-    ) {
-      if (
-        this.getHeritageSites.features[index].properties.id_heritage_site ==
-        this.getIdElement
-      ) {
-        this.heritage_site = this.getHeritageSites.features[index].properties;
-      }
-    }
   },
   methods: {
     goBack: function() {
@@ -115,7 +120,7 @@ export default {
     },
 
     goToExperience(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadExperienceById", id);
       this.$router.push("/experience/" + name);
     },
     countDownChanged(dismissCountDown) {
@@ -127,7 +132,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["getTitle", "getIdElement", "getHeritageSites"])
+    ...mapGetters(["getTitle", "getHeritageSites"])
   }
 };
 </script>

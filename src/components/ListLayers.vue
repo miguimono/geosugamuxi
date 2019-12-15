@@ -13,7 +13,7 @@
               block
               v-b-toggle="name_layer"
               @click="setSecondaryLayers(name_layer)"
-              variant="outline-success"
+              variant="outline-success" 
               >{{ name_layer }}</b-button
             >
             <div v-if="isVisible">
@@ -56,7 +56,11 @@ export default {
   created() {},
   methods: {
     setSecondaryLayers: function(name) {
+      if (this.name_layer =="Municipios") {
+        this.$router.push("municipalities/");  
+      }else{
       this.$router.push("specification/" + name);
+      }
     },
     updateIsVisible: function(name) {
       this.$store.dispatch("updateIsVisible", name);

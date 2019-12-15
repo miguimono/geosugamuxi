@@ -1,26 +1,30 @@
 <template>
   <div class="experience">
-    <b-alert
-      :show="dismissCountDown"
-      dismissible
-      fade
-      variant="warning"
-      @dismiss-count-down="countDownChanged"
-    >
-      Desliza hacia abajo para ver mas información
-    </b-alert>
-    <div v-if="this.experience">
+    <div v-if="this.$store.getters.getExperience">
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        fade
+        variant="warning"
+        @dismiss-count-down="countDownChanged"
+      >
+        Desliza hacia abajo para ver mas información
+      </b-alert>
+
       <b-container fluid class="p-2 bg-ligth">
         <b-card
           bg-variant="white"
           border-variant="light"
           class="shadow p-2 mb-3 rounded"
-          :title="this.experience.name"
+          :title="this.$store.getters.getExperience[0].name"
         >
+          <div></div>
           <b-card-text>
-            <h5 class="mb-2">¡{{ this.experience.slogan }}!</h5>
+            <h5 class="mb-2">
+              ¡{{ this.$store.getters.getExperience[0].slogan }}!
+            </h5>
             <p class="mb-2">
-              {{ experience.history }}
+              {{ this.$store.getters.getExperience[0].history }}
             </p>
           </b-card-text>
 
@@ -32,7 +36,7 @@
               title="!Recomendaciones para tener en cuenta!"
             >
               <p class="mt-2">
-                {{ this.experience.recommendations }}
+                {{ this.$store.getters.getExperience[0].recommendations }}
               </p>
             </b-card>
           </b-container>
@@ -45,7 +49,8 @@
                 title="Lugares patrimonio de la humanidad"
               >
                 <div
-                  v-for="(heritage_sites, index) in experience.heritage_sites"
+                  v-for="(heritage_sites, index) in this.$store.getters
+                    .getExperience[0].heritage_sites"
                   :key="index"
                 >
                   <b-button
@@ -73,7 +78,8 @@
                 title="Facilita tu experiencia con estos servicios"
               >
                 <div
-                  v-for="(service, index) in experience.services"
+                  v-for="(service, index) in this.$store.getters
+                    .getExperience[0].services"
                   :key="index"
                 >
                   <b-button
@@ -113,7 +119,6 @@
               </b-container>
             </b-card>
           </b-container>
-
           <b-container fluid>
             <b-card
               bg-variant="white"
@@ -121,19 +126,27 @@
               class="shadow p-2 mb-5 rounded text-center"
               title="Sorprendete con la belleza de esta experiencia"
             >
-              <Carousel :gallery_id="this.experience.id_gallery" />
+              <Carousel
+                :gallery_id="
+                  this.$store.getters.getExperience[0].id_gallery
+                "
+              />
             </b-card>
           </b-container>
-          <!-- <b-container fluid>
+          <b-container fluid>
             <b-card
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-5 rounded text-center"
               title="Realiza una inmersión virtual"
             >
-              <Photo360 :photo_src="this.experience.id_photo_360" />
+              <Photo360
+                :photo_src="
+                  this.$store.getters.getExperience[0].id_photo_360
+                "
+              />
             </b-card>
-          </b-container>-->
+          </b-container>
           <b-button squared block variant="success" @click="goBack()"
             >Volver</b-button
           >
@@ -164,14 +177,9 @@ export default {
       showDismissibleAlert: false
     };
   },
+
   created() {
     this.showAlert();
-    for (let index = 0; index < this.getExperiences.length; index++) {
-      if (this.getExperiences[index].id_experience == this.getIdElement) {
-        this.experience = this.getExperiences[index];
-        this.$store.commit("loadPhotos", this.experience.id_gallery);
-      }
-    }
   },
 
   methods: {
@@ -196,7 +204,7 @@ export default {
       }
     },
     goToHeritageSite: function(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadHeritageSitesById", id);
       this.$router.push("/heritage_site/" + name);
     }
   },
@@ -204,7 +212,6 @@ export default {
     ...mapGetters([
       "getTitle",
       "getExperiences",
-      "getIdElement",
       "getHeritageSites"
     ])
   }

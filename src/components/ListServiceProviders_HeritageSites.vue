@@ -113,37 +113,15 @@ export default {
     isVisible: Boolean
   },
   components: {},
-  created() {},
+  
   methods: {
     loadLayers: function(id, name) {
       if (this.name_layer == "Prestadores de servicio") {
-        for (
-          let index = 0;
-          index < this.getServiceProviders.features.length;
-          index++
-        ) {
-          if (
-            this.getServiceProviders.features[index].properties
-              .id_service_provider == id
-          ) {
-            this.$store.commit("setIdElement", id);
-            this.$router.push("service_provider/" + name);
-          }
-        }
+        this.$store.commit("loadServiceProvidersById", id);
+        this.$router.push("service_provider/" + name);
       } else if (this.name_layer == "Patrimonios") {
-        for (
-          let index2 = 0;
-          index2 < this.getHeritageSites.features.length;
-          index2++
-        ) {
-          if (
-            this.getHeritageSites.features[index2].properties
-              .id_heritage_site == id
-          ) {
-            this.$store.commit("setIdElement", id);
-            this.$router.push("heritage_site/" + name);
-          }
-        }
+        this.$store.commit("loadHeritageSitesById", id);
+        this.$router.push("heritage_site/" + name);
       }
     },
     updateIsVisible: function(name) {
@@ -151,7 +129,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["getIdElement", "getServiceProviders", "getHeritageSites"])
+    ...mapGetters(["getServiceProviders", "getHeritageSites"])
   }
 };
 </script>

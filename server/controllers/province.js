@@ -67,6 +67,20 @@ module.exports = {
     let get_province = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_province);
   },
+  async getProvinceCoord(req, res) {
+    let province = await model_province.findAll({});
+    var data = [];
+
+    for (var i = 0; i < province.length; i++) {
+      data.push({
+        id_province: province[i].id_province,
+        name_province: province[i].name,
+        coordinates: province[i].geom.coordinates
+      });
+    }
+    let get_province = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
+    res.json(get_province);
+  },
   async getProvinceByName(req, res) {
     let province = await model_province.findAll({
       include: [

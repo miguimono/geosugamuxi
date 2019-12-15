@@ -1,10 +1,7 @@
 <template>
   <div class="municipalities">
     <b-container fluid class="p-2 bg-light">
-      <div v-if="this.loading" class="mx-auto bg-success" style="width: 100px;">
-        <Circle8></Circle8>
-      </div>
-      <div v-else>
+      <div v-if="this.$store.getters.getMunicipalitiesBasic">
         <b-card
           bg-variant="white"
           border-variant="light"
@@ -15,7 +12,8 @@
             Todos los municipios de las provincias de Boyacá
           </b-card-text>
           <div
-            v-for="(municipality, index) in this.municipalities"
+            v-for="(municipality, index) in this.$store.getters
+              .getMunicipalitiesBasic"
             :key="index"
           >
             <b-card
@@ -26,20 +24,20 @@
             >
               <b-button
                 block
-                v-b-toggle="municipality.properties.name_municipality"
+                v-b-toggle="municipality.name_municipality"
                 variant="outline-success"
-                >{{ municipality.properties.name_municipality }}</b-button
+                >{{ municipality.name_municipality }}</b-button
               >
               <b-collapse
-                :id="municipality.properties.name_municipality"
+                :id="municipality.name_municipality"
                 accordion="my-accordion"
                 role="tabpanel"
               >
                 <b-card-text>
                   <div class="p-2">
                     De la provincia de
-                    {{ municipality.properties.name_province }} del departamento
-                    de {{ municipality.properties.name_department }}
+                    {{ municipality.name_province }} del departamento de
+                    {{ municipality.name_department }}
                   </div>
                 </b-card-text>
                 <b-container fluid class="p-2 bg-default">
@@ -50,15 +48,11 @@
                       class="shadow p-2 mb-5 rounded text-center"
                       title="Prestadores de servicio en este municipio"
                     >
-                      <div
-                        v-if="
-                          municipality.properties.service_provider.length != 0
-                        "
-                      >
+                      <div v-if="municipality.service_provider.length != 0">
                         <b-list-group>
                           <div
-                            v-for="(service_provider, index) in municipality
-                              .properties.service_provider"
+                            v-for="(service_provider,
+                            index) in municipality.service_provider"
                             :key="index"
                           >
                             <b-button
@@ -68,8 +62,11 @@
                               @click="
                                 goToServiceProvider(
                                   service_provider.id_service_provider,
-                                  service_provider.name_service_provider)">
-                              {{service_provider.name_service_provider}}
+                                  service_provider.name_service_provider
+                                )
+                              "
+                            >
+                              {{ service_provider.name_service_provider }}
                             </b-button>
                             <p></p>
                           </div>
@@ -102,9 +99,7 @@ export default {
   name: "Municipalities",
   data() {
     return {
-      name: "Municipios",
-      municipalities: null,
-      loading: false
+      name: "Municipios"
     };
   },
   components: {
@@ -115,17 +110,12 @@ export default {
       window.history.back();
     },
     goToServiceProvider(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadServiceProvidersById", id);
       this.$router.push("service_provider/" + name);
     }
   },
-  created: function() {
-    try {
-      this.loading = false;
-      this.municipalities = this.$store.getters.getMunicipalities.features;
-    } catch (error) {
-      this.loading = true;
-    }
-  },
+  beforeCreate: function() {
+    this.$store.commit("loadMunicipalitiesBasic");
+  }
 };
 </script>

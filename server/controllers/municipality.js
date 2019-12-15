@@ -65,13 +65,13 @@ module.exports = {
           service.push({
             service_name_service:
               municipality[i].service_providers[j].service_provider_services[k]
-                .service.name,
-            
+                .service.name
           });
         }
 
         service_provider.push({
-          id_service_provider: municipality[i].service_providers[j].id_service_provider,
+          id_service_provider:
+            municipality[i].service_providers[j].id_service_provider,
           name_service_provider: municipality[i].service_providers[j].name,
           services: service
         });
@@ -87,6 +87,53 @@ module.exports = {
     }
     let get_municipality = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
     res.json(get_municipality);
+  },
+  async getMunicipalityCoord(req, res) {
+    let municipality = await model_municipality.findAll({});
+    var data = [];
+
+    for (var i = 0; i < municipality.length; i++) {
+      data.push({
+        id_municipality: municipality[i].id_municipality,
+        name_municipality: municipality[i].name,
+        coordinates: municipality[i].geom.coordinates
+      });
+    }
+    let get_municipality = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
+    res.json(get_municipality);
+  },
+  async getMunicipalityBasic(req, res) {
+    let municipality = await model_municipality.findAll({
+      include: [
+        {
+          model: model_province,
+          include: [{ model: model_department }]
+        },
+        {
+          model: model_service_provider
+        }
+      ]
+    });
+    var data = [];
+    var service_provider = [];
+    for (var i = 0; i < municipality.length; i++) {
+      service_provider = [];
+      for (let j = 0; j < municipality[i].service_providers.length; j++) {
+        service_provider.push({
+          id_service_provider:
+            municipality[i].service_providers[j].id_service_provider,
+          name_service_provider: municipality[i].service_providers[j].name
+        });
+      }
+      data.push({
+        id_municipality: municipality[i].id_municipality,
+        name_municipality: municipality[i].name,
+        name_province: municipality[i].province.name,
+        name_department: municipality[i].province.department.name,
+        service_provider: service_provider
+      });
+    }
+    res.json(data);
   },
   async getMunicipalityByName(req, res) {
     let municipality = await model_municipality.findAll({
@@ -129,7 +176,8 @@ module.exports = {
           });
         }
         service_provider.push({
-          id_service_provider: municipality[i].service_providers[j].id_service_provider,
+          id_service_provider:
+            municipality[i].service_providers[j].id_service_provider,
           name_service_provider: municipality[i].service_providers[j].name,
           services: service
         });
@@ -138,7 +186,66 @@ module.exports = {
         id_municipality: municipality[i].id_municipality,
         name_municipality: municipality[i].name,
         coordinates: municipality[i].geom.coordinates,
-        name_province: municipality[i].province.name,        
+        name_province: municipality[i].province.name,
+        name_department: municipality[i].province.department.name,
+        service_provider: service_provider
+      });
+    }
+    let get_municipality = GeoJSON.parse(data, { MultiPolygon: "coordinates" });
+    res.json(get_municipality);
+  },
+  async getMunicipalityById(req, res) {
+    let municipality = await model_municipality.findAll({
+      include: [
+        {
+          model: model_province,
+          include: [{ model: model_department }]
+        },
+        {
+          model: model_service_provider,
+          include: [
+            {
+              model: model_service_provider_service,
+              include: [{ model: model_service }]
+            }
+          ]
+        }
+      ],
+      where: {
+        id_municipality: req.params.id_municipality
+      }
+    });
+    var data = [];
+    var service_provider = [];
+    var service = [];
+    for (var i = 0; i < municipality.length; i++) {
+      service_provider = [];
+      for (let j = 0; j < municipality[i].service_providers.length; j++) {
+        service = [];
+        for (
+          let k = 0;
+          k <
+          municipality[i].service_providers[j].service_provider_services.length;
+          k++
+        ) {
+          service.push({
+            name_service:
+              municipality[i].service_providers[j].service_provider_services[k]
+                .service.name
+          });
+        }
+        service_provider.push({
+          id_service_provider:
+            municipality[i].service_providers[j].id_service_provider,
+          name_service_provider: municipality[i].service_providers[j].name,
+          services: service
+        });
+      }
+      data.push({
+        id_municipality: municipality[i].id_municipality,
+        name_municipality: municipality[i].name,
+        coordinates: municipality[i].geom.coordinates,
+        name_province: municipality[i].province.name,
         name_department: municipality[i].province.department.name,
         service_provider: service_provider
       });

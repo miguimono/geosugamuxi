@@ -20,8 +20,8 @@
           </div>
         </b-carousel>
       </div>
-      <div v-else>
-        <p>La galeria se encuentra vacia</p>
+      <div v-else style="color: white">
+        <p>La galería se encuentra vacía</p>
       </div>
     </b-container>
   </div>

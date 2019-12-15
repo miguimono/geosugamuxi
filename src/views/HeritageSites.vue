@@ -1,10 +1,7 @@
 <template>
   <div class="heritage_sites">
     <b-container fluid class="p-2 bg-light">
-      <div v-if="this.loading" class="mx-auto bg-success" style="width: 100px;">
-        <Circle8></Circle8>
-      </div>
-      <div v-else>
+      <div v-if="this.$store.getters.getHeritageSitesBasic">
         <b-card
           bg-variant="white"
           border-variant="light"
@@ -16,7 +13,8 @@
           </b-card-text>
 
           <div
-            v-for="(heritage_site, index) in this.heritage_sites"
+            v-for="(heritage_site, index) in this.$store.getters
+              .getHeritageSitesBasic"
             :key="index"
           >
             <b-card
@@ -27,31 +25,31 @@
             >
               <b-button
                 block
-                v-b-toggle="heritage_site.properties.name"
+                v-b-toggle="heritage_site.name"
                 variant="outline-success"
-                >{{ heritage_site.properties.name }}</b-button
+                >{{ heritage_site.name }}</b-button
               >
               <b-collapse
-                :id="heritage_site.properties.name"
+                :id="heritage_site.name"
                 accordion="my-accordion"
                 role="tabpanel"
               >
                 <b-card-text>
-                  <div class="p-2">
+                  <div class="p-2" style="float: right;">
                     <b-button
                       variant="outline-success"
                       pill
                       @click="
                         goToHeritageSite(
-                          heritage_site.properties.id_heritage_site,
-                          heritage_site.properties.name_heritage_site
+                          heritage_site.id_heritage_site,
+                          heritage_site.name
                         )
                       "
                       >Ver detalles
                     </b-button>
                   </div>
                   <div class="p-2">
-                    {{ heritage_site.properties.description }}
+                    {{ heritage_site.description }}
                   </div>
                 </b-card-text>
                 <b-container fluid class="p-2 bg-default">
@@ -64,8 +62,8 @@
                     >
                       <b-list-group>
                         <div
-                          v-for="(experience, index) in heritage_site.properties
-                            .experiences"
+                          v-for="(experience,
+                          index) in heritage_site.experiences"
                           :key="index"
                         >
                           <b-button
@@ -105,9 +103,7 @@ export default {
   name: "Heritage_sites",
   data() {
     return {
-      name: "Patrimonios",
-      heritage_sites: null,
-      loading: false
+      name: "Patrimonios"
     };
   },
   components: {
@@ -118,21 +114,16 @@ export default {
       window.history.back();
     },
     goToHeritageSite: function(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadHeritageSitesById", id);
       this.$router.push("/heritage_site/" + name);
     },
     goToExperience(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadExperienceById", id);
       this.$router.push("/experience/" + name);
     }
   },
-  created: function() {
-    try {
-      this.heritage_sites = this.$store.getters.getHeritageSites.features;
-      this.loading = false;
-    } catch (error) {
-      this.loading = true;
-    }
+  beforeCreate: function() {
+    this.$store.commit("loadHeritageSitesBasic");
   }
 };
 </script>

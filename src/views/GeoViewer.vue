@@ -1,10 +1,7 @@
 <template>
   <div class="geoviewer">
     <b-container fluid class="p-2 bg-light">
-      <div v-if="this.loading" class="mx-auto bg-success" style="width: 100px;">
-        <Circle8></Circle8>
-      </div>
-      <div v-else>
+      
         <b-card
           bg-variant="white"
           border-variant="light"
@@ -29,59 +26,47 @@
               </template>
               <b-container fluid class="p-2 bg-white">
                 <div>
-                  <ListServices_Experiences
-                    :layer="this.getExperiences"
-                    :name_layer="'Experiencias'"
-                  />
-                  <ListServices_Experiences
-                    :layer="this.getServices"
-                    :name_layer="'Servicios'"
-                  />
                   <ListServiceProviders_HeritageSites
-                    :layer="this.getServiceProviders.features"
+                    :layer="this.$store.getters.getServiceProviders.features"
                     :name_layer="'Prestadores de servicio'"
                     :isVisible="getVisibleServiceProviders"
                   />
                   <ListServiceProviders_HeritageSites
-                    :layer="this.getHeritageSites.features"
+                    :layer="this.$store.getters.getHeritageSites.features"
                     :name_layer="'Patrimonios'"
                     :isVisible="getVisibleHeritageSites"
                   />
                   <ListLayers
-                    :layer="this.getProjects"
+                    :layer="this.$store.getters.getProjects"
                     :name_layer="'Proyectos'"
                     :isVisible="getVisibleProjects"
                   />
                   <ListLayers
-                    :layer="this.getMunicipalities"
+                    :layer="this.$store.getters.getMunicipalities"
                     :name_layer="'Municipios'"
                     :isVisible="getVisibleMunicipalities"
                   />
                   <ListLayers
-                    :layer="this.getProvinces"
+                    :layer="this.$store.getters.getProvinces"
                     :name_layer="'Provincias'"
                     :isVisible="getVisibleProvinces"
-                  />
+                  /> 
                   <ListLayers
-                    :layer="this.getDepartments"
+                    :layer="this.$store.getters.getDepartments"
                     :name_layer="'Departamentos'"
                     :isVisible="getVisibleDepartments"
                   />
                   <ListLayers
-                    :layer="this.getDepartamentalRoads"
+                    :layer="this.$store.getters.getDepartamentalRoads"
                     :name_layer="'Vias departamentales'"
                     :isVisible="getVisibleDepartamentalRoads"
-                  />
-                  <ListLayers
-                    :layer="this.getPopulatedCenterSugamuxi"
-                    :name_layer="'Centro poblado'"
-                    :isVisible="getVisiblePopulatedCenterSugamuxi"
                   />
                 </div>
               </b-container>
             </b-modal>
           </b-container>
           <b-container fluid class="p-2 bg-white">
+            
             <b-card no-body>
               <b-container fluid class="p-1 bg-dark">
                 <div>
@@ -90,19 +75,19 @@
               </b-container>
             </b-card>
           </b-container>
-
+          
           <b-button size="sm" variant="outline-info" @click="helpMap()"
             >¿Como usar el mapa?</b-button
           >
         </b-card>
-      </div>
+      
     </b-container>
   </div>
 </template>
 
 <script>
 import Map from "@/components/Map.vue";
-import ListServices_Experiences from "@/components/ListServices_Experiences.vue";
+
 import ListServiceProviders_HeritageSites from "@/components/ListServiceProviders_HeritageSites.vue";
 import ListLayers from "@/components/ListLayers.vue";
 import { mapGetters } from "vuex";
@@ -111,7 +96,6 @@ export default {
   name: "GeoViewer",
   components: {
     Map,
-    ListServices_Experiences,
     ListServiceProviders_HeritageSites,
     ListLayers,
     Circle8
@@ -133,40 +117,11 @@ export default {
       help_map4:
         "Al seleccionar un patrimonio puede ver su información basica y posterior mente ir a ver su descripcion detallada",
       loading: true,
-      getServices: null,
-      getExperiences: null,
 
-      getServiceProviders: null,
-      getHeritageSites: null,
-
-      getDepartamentalRoads: null,
-      getPopulatedCenterSugamuxi: null,
-
-      getProjects: null,
-      getMunicipalities: null,
-      getProvinces: null,
-      getDepartments: null
     };
   },
-  created: function() {
-    try {
-      this.getServices = this.$store.getters.getServices;
-      this.getExperiences = this.$store.getters.getExperiences;
-
-      this.getServiceProviders = this.$store.getters.getServiceProviders;
-      this.getHeritageSites = this.$store.getters.getHeritageSites;
-
-      this.getDepartamentalRoads = this.$store.getters.getDepartamentalRoads;
-      this.getPopulatedCenterSugamuxi = this.$store.getters.getPopulatedCenterSugamuxi;
-
-      this.getProjects = this.$store.getters.getProjects;
-      this.getMunicipalities = this.$store.getters.getMunicipalities;
-      this.getProvinces = this.$store.getters.getProvinces;
-      this.getDepartments = this.$store.getters.getDepartments;
-      this.loading = false;
-    } catch (error) {
-      this.loading = true;
-    }
+  beforeCreate:function(){
+    this.$store.dispatch("loadLayers");
   },
   updated: function() {},
 
@@ -224,7 +179,6 @@ export default {
       "getVisibleServiceProviders",
       "getVisibleHeritageSites",
       "getVisibleDepartamentalRoads",
-      "getVisiblePopulatedCenterSugamuxi",
 
       "getVisibleMunicipalities",
       "getVisibleProvinces",

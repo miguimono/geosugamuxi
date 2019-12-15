@@ -13,20 +13,22 @@ export default new Vuex.Store({
     title: "Experiencia rural Sugamuxi",
 
     base_map: null,
-    about:null,
+    about: null,
 
-    photos_user_id: "185677137@N07",
-    photos_api_key_public: "1e1df81c321dab285182201462e86849",
-    photos_api_key_private: "e965807805f2e3fe",
+    photos_user_id: "185962838@N05",
+    photos_api_key_public: "5fe7d4c13d41f94688e468a82131ce67",
+    photos_api_key_private: "70e8e1552e026a58",
     photos: null,
-
-    id_element: null,
-
+ 
     service_providers: null,
+    service_provider: null,
+    heritage_site: null,
     heritage_sites: null,
 
     services: null,
+    service: null,
     experiences: null,
+    experience: null,
 
     municipalities: null,
     provinces: null,
@@ -34,13 +36,11 @@ export default new Vuex.Store({
     projects: null,
 
     departamental_roads: null,
-    populated_center_sugamuxi: null,
 
     is_visible_service_providers: true,
     is_visible_heritage_sites: true,
 
     is_visible_departamental_roads: false,
-    is_visible_populated_center_sugamuxi: false,
 
     is_visible_municipalities: false,
     is_visible_provinces: false,
@@ -56,7 +56,9 @@ export default new Vuex.Store({
     loadAbout: function(state) {
       state.about = about_json.features;
     },
+    // ***********************
     async loadServiceProviders(state) {
+      state.service_providers = null;
       await axios
         .get("http://localhost:3000/api/service_provider")
         .then(response => {
@@ -66,7 +68,65 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadServiceProvidersCoord(state) {
+      state.service_providers = null;
+      await axios
+        .get("http://localhost:3000/api/service_provider_coord")
+        .then(response => {
+          state.service_providers = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadServiceProvidersBasic(state) {
+      state.service_providers = null;
+      await axios
+        .get("http://localhost:3000/api/service_provider_basic")
+        .then(response => {
+          state.service_providers = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadRandomServiceProvider(state) {
+      var rnd = null;
+      await axios
+        .get("http://localhost:3000/api/service_provider_size")
+        .then(response => {
+          this.rnd = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      state.service_provider = null;
+      await axios
+        .get(
+          "http://localhost:3000/api/service_provider/" +
+            (Math.floor(Math.random() * this.rnd) + 1)
+        )
+        .then(response => {
+          state.service_provider = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadServiceProvidersById(state, id) {
+      state.service_provider = null;
+      await axios
+        .get("http://localhost:3000/api/service_provider/" + id)
+        .then(response => {
+          state.service_provider = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadHeritageSites(state) {
+      state.heritage_sites = null;
       await axios
         .get("http://localhost:3000/api/heritage_site")
         .then(response => {
@@ -76,26 +136,64 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
-    async loadDepartamentalRoads(state) {
+    async loadHeritageSitesCoord(state) {
+      state.heritage_sites = null;
       await axios
-        .get("http://localhost:3000/api/departamental_roads")
+        .get("http://localhost:3000/api/heritage_site_coord")
         .then(response => {
-          state.departamental_roads = response.data;
+          state.heritage_sites = response.data;
         })
         .catch(error => {
           console.log(error);
         });
     },
-    async loadPopulatedCenterSugamuxi(state) {
+    async loadHeritageSitesBasic(state) {
+      state.heritage_sites = null;
       await axios
-        .get("http://localhost:3000/api/populated_center")
+        .get("http://localhost:3000/api/heritage_site_basic")
         .then(response => {
-          state.populated_center_sugamuxi = response.data;
+          state.heritage_sites = response.data;
         })
         .catch(error => {
           console.log(error);
         });
     },
+    async loadRandomHeritageSite(state) {
+      var rnd = null;
+      await axios
+        .get("http://localhost:3000/api/heritage_site_size")
+        .then(response => {
+          this.rnd = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      state.heritage_site = null;
+      await axios
+        .get(
+          "http://localhost:3000/api/heritage_site/" +
+            (Math.floor(Math.random() * this.rnd) + 1)
+        )
+        .then(response => {
+          state.heritage_site = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadHeritageSitesById(state, id) {
+      state.heritage_site = null;
+      await axios
+        .get("http://localhost:3000/api/heritage_site/" + id)
+        .then(response => {
+          state.heritage_site = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
+
     async loadServices(state) {
       state.services = null;
       await axios
@@ -107,6 +205,18 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadServicesByName(state, name) {
+      state.service = null;
+      await axios
+        .get("http://localhost:3000/api/service_name/" + name)
+        .then(response => {
+          state.service = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadExperiences(state) {
       state.experiences = null;
       await axios
@@ -118,6 +228,52 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadExperiencesBasic(state) {
+      state.experiences = null;
+      await axios
+        .get("http://localhost:3000/api/experience_basic/")
+        .then(response => {
+          state.experiences = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadExperienceById(state, id) {
+      state.experience = null;
+      await axios
+        .get("http://localhost:3000/api/experience/" + id)
+        .then(response => {
+          state.experience = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadRandomExperience(state) {
+      var rnd = null;
+      await axios
+        .get("http://localhost:3000/api/experience_size")
+        .then(response => {
+          this.rnd = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+      state.experience = null;
+      await axios
+        .get(
+          "http://localhost:3000/api/experience/" +
+            (Math.floor(Math.random() * this.rnd) + 1)
+        )
+        .then(response => {
+          state.experience = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadMunicipalities(state) {
       state.municipalities = null;
       await axios
@@ -129,6 +285,29 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadMunicipalitiesCoord(state) {
+      state.municipalities = null;
+      await axios
+        .get("http://localhost:3000/api/municipality_coord/")
+        .then(response => {
+          state.municipalities = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    async loadMunicipalitiesBasic(state) {
+      state.municipalities = null;
+      await axios
+        .get("http://localhost:3000/api/municipality_basic/")
+        .then(response => {
+          state.municipalities = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadProvinces(state) {
       state.provinces = null;
       await axios
@@ -140,6 +319,18 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadProvincesCoord(state) {
+      state.provinces = null;
+      await axios
+        .get("http://localhost:3000/api/province_coord/")
+        .then(response => {
+          state.provinces = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadDepartments(state) {
       state.departments = null;
       await axios
@@ -151,6 +342,18 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    async loadDepartmentsCoord(state) {
+      state.departments = null;
+      await axios
+        .get("http://localhost:3000/api/department_coord/")
+        .then(response => {
+          state.departments = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    // ***********************
     async loadProjects(state) {
       state.projects = null;
       await axios
@@ -162,6 +365,19 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    // ***********************
+    async loadDepartamentalRoads(state) {
+      state.departamental_roads = null;
+      await axios
+        .get("http://localhost:3000/api/departamental_roads")
+        .then(response => {
+          state.departamental_roads = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    
     isVisibleServiceProviders: function(state) {
       state.is_visible_service_providers = !state.is_visible_service_providers;
     },
@@ -170,9 +386,6 @@ export default new Vuex.Store({
     },
     isVisibleDepartamentalRoads: function(state) {
       state.is_visible_departamental_roads = !state.is_visible_departamental_roads;
-    },
-    isVisiblePopulatedCenterSugamuxi: function(state) {
-      state.is_visible_populated_center_sugamuxi = !state.is_visible_populated_center_sugamuxi;
     },
     isVisibleMunicipalities: function(state) {
       state.is_visible_municipalities = !state.is_visible_municipalities;
@@ -187,8 +400,8 @@ export default new Vuex.Store({
       state.is_visible_projects = !state.is_visible_projects;
     },
     loadPhotos: function(state, gallery_id) {
+      state.photos = null;
       if (gallery_id) {
-        state.photos = null;
         axios
           .get("https://api.flickr.com/services/rest", {
             params: {
@@ -206,9 +419,6 @@ export default new Vuex.Store({
             state.photos = response.data.photoset.photo;
           });
       }
-    },
-    setIdElement: function(state, id) {
-      state.id_element = id;
     }
   },
   //Llama las mutaciones y las realiza
@@ -221,21 +431,18 @@ export default new Vuex.Store({
     async loadAbout(mutations) {
       await mutations.commit("loadAbout");
     },
-    async loadPrincipalLayers(mutations) {
-      await mutations.commit("loadServiceProviders"); //Cargar prestadores de servicio
-      await mutations.commit("loadHeritageSites"); //Cargar patrimonios
+    async loadLayers(mutations) {
+      await mutations.commit("loadDepartmentsCoord");
+      await mutations.commit("loadProvincesCoord");
+      await mutations.commit("loadMunicipalitiesCoord");
 
-      await mutations.commit("loadServices"); //Cargar servicios
-      await mutations.commit("loadExperiences"); //Cargar experiencias
-    },
-    async loadSecondaryLayers(mutations) {
-      await mutations.commit("loadMunicipalities"); //Cargar municipios
-      await mutations.commit("loadProvinces"); //Cargar provincias
-      await mutations.commit("loadDepartments"); //Cargar departamentos
-      await mutations.commit("loadProjects"); //Cargar proyectos
-
-      await mutations.commit("loadDepartamentalRoads"); //Cargar vias departamentales
-      await mutations.commit("loadPopulatedCenterSugamuxi"); //Cargar centro poblado
+      await mutations.commit("loadHeritageSitesCoord");
+      await mutations.commit("loadServiceProvidersCoord");
+      //points
+      await mutations.commit("loadProjects");
+      //lines
+      await mutations.commit("loadDepartamentalRoads");
+      //No hay ningun Polygon
     },
 
     updateIsVisible: function(mutations, name) {
@@ -245,8 +452,6 @@ export default new Vuex.Store({
         mutations.commit("isVisibleHeritageSites");
       } else if (name == "Vias departamentales") {
         mutations.commit("isVisibleDepartamentalRoads");
-      } else if (name == "Centro poblado") {
-        mutations.commit("isVisiblePopulatedCenterSugamuxi");
       } else if (name == "Municipios") {
         mutations.commit("isVisibleMunicipalities");
       } else if (name == "Provincias") {
@@ -271,34 +476,14 @@ export default new Vuex.Store({
     getAbout(state) {
       return state.about;
     },
-    getPrincipalLayers: function(state) {
-      if (
-        state.loadServiceProviders != null &&
-        state.loadHeritageSites != null &&
-        state.loadServices != null &&
-        state.loadExperiences != null
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    getSecondaryLayers: function(state) {
-      if (
-        state.loadMunicipalities != null &&
-        state.loadProvinces != null &&
-        state.loadDepartments != null &&
-        state.loadProjects != null &&
-        state.loadDepartamentalRoads != null &&
-        state.loadPopulatedCenterSugamuxi != null
-      ) {
-        return true;
-      } else {
-        return false;
-      }
-    },
     getServiceProviders: state => {
       return state.service_providers;
+    },
+    getServiceProvidersBasic: state => {
+      return state.service_providers;
+    },
+    getServiceProvider: state => {
+      return state.service_provider;
     },
     getVisibleServiceProviders: function(state) {
       return state.is_visible_service_providers;
@@ -306,16 +491,37 @@ export default new Vuex.Store({
     getHeritageSites(state) {
       return state.heritage_sites;
     },
+    getHeritageSitesBasic(state) {
+      return state.heritage_sites;
+    },
+    getHeritageSite(state) {
+      return state.heritage_site;
+    },
     getVisibleHeritageSites: function(state) {
       return state.is_visible_heritage_sites;
     },
     getServices: function(state) {
       return state.services;
     },
+    getServicesByName: function(state) {
+      return state.service;
+    },
     getExperiences: function(state) {
       return state.experiences;
     },
+    getExperiencesBasic: function(state) {
+      return state.experiences;
+    },
+    getExperienceById: function(state) {
+      return state.experience;
+    },
+    getExperience: function(state) {
+      return state.experience;
+    },
     getMunicipalities: function(state) {
+      return state.municipalities;
+    },
+    getMunicipalitiesBasic: function(state) {
       return state.municipalities;
     },
     getProvinces: function(state) {
@@ -329,9 +535,6 @@ export default new Vuex.Store({
     },
     getDepartamentalRoads: state => {
       return state.departamental_roads;
-    },
-    getPopulatedCenterSugamuxi(state) {
-      return state.populated_center_sugamuxi;
     },
     getVisibleDepartamentalRoads: function(state) {
       return state.is_visible_departamental_roads;
@@ -347,9 +550,6 @@ export default new Vuex.Store({
     },
     getVisibleProjects: function(state) {
       return state.is_visible_projects;
-    },
-    getVisiblePopulatedCenterSugamuxi: function(state) {
-      return state.is_visible_populated_center_sugamuxi;
     },
     getPhotos: function(state) {
       return state.photos;
@@ -368,9 +568,6 @@ export default new Vuex.Store({
       } else {
         return null;
       }
-    },
-    getIdElement: function(state) {
-      return state.id_element;
     }
   }
 });

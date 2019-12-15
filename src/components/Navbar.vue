@@ -15,9 +15,9 @@
 
         <b-collapse id="nav-collapse" is-nav>
           <b-navbar-nav >
-            <b-nav-item :to="{ name: 'home' }">Inicio</b-nav-item>
+            <b-nav-item active :to="{ name: 'home' }">Inicio</b-nav-item>
             <b-nav-item :to="{ name: 'experiences' }"> Experiencias</b-nav-item>
-            <b-nav-item :to="{ name: 'geoviewer' }"><strong>GeoVisor</strong></b-nav-item>
+            <b-nav-item :to="{ name: 'geoviewer' }"><strong>Mapa</strong></b-nav-item>
             <b-nav-item :to="{ name: 'service_providers' }"
               >Prestadores de servicio</b-nav-item
             >
@@ -30,17 +30,17 @@
                 >Alojamientos</b-dropdown-item
               >
               <b-dropdown-item :to="{ name: 'gastronomy' }"
-                >Gastronomia</b-dropdown-item
+                >Gastronomía</b-dropdown-item
               >
               <b-dropdown-item :to="{ name: 'animation' }"
-                >Animacion</b-dropdown-item
+                >Animación</b-dropdown-item
               >
               <b-dropdown-item :to="{ name: 'transport' }"
                 >Transporte</b-dropdown-item
               >
             </b-nav-item-dropdown>
 
-            <b-nav-item :to="{ name: 'about' }">Acerca de</b-nav-item>
+            <b-nav-item :to="{ name: 'about' }">Información</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-container>

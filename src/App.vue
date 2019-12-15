@@ -4,7 +4,6 @@
       <Navbar />
     </div>
     <b-container fluid class="bg-light">
-      <div v-if="this.getPrincipalLayers != null">
         <b-row>
           <b-col md="10" offset-md="1">
             <div>
@@ -12,7 +11,6 @@
             </div>
           </b-col>
         </b-row>
-      </div>
     </b-container>
     <div>
       <Footer></Footer>
@@ -40,21 +38,23 @@ export default {
   },
 
   beforeCreate: function() {
-    try {
+    /*try {
       this.$store.dispatch("loadBaseMap");
       this.$store.dispatch("loadPrincipalLayers");
+      this.$store.commit("loadRandomServiceProviders");
       console.log("Capas principales");
     } catch (error) {
       console.log("No se ha podido cargar capa primaria");
-    }
+    }*/
   },
   created: function() {
+    /*
     try {
       this.$store.dispatch("loadSecondaryLayers");
       console.log("Capas secundarias");
     } catch (error) {
       console.log("No se ha podido cargar capa secundaria");
-    }
+    }*/
   },
   methods: {},
 

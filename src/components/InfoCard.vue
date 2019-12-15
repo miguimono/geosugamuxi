@@ -2,106 +2,100 @@
   <div>
     <div v-if="type">
       <div
-      @mouseover="isToggle = !isToggle"
-      v-show="!isToggle"
-      class="animationY flipY"
-    >
-      <b-card
-        fluid
-                bg-variant="white"
-                border-variant="light"
-                class="shadow p-2 mb-5 rounded text-center"
-        :title="headerFront"
+        @mouseover="isToggle = !isToggle"
+        v-show="!isToggle"
+        class="animationY flipY"
       >
-       <b-card-text>
-                {{ front }}
-                 </b-card-text>
-      </b-card>
-    </div>
-    <div
-      @mouseleave="isToggle = !isToggle"
-      v-show="isToggle"
-      class="animationY flipY"
-    >
-      <b-card
-        fluid
-        border-variant="success"
-        :header="headerBack"
-        header-bg-variant="success"
-        header-text-variant="white"
-        class="shadow p-2 mb-5 rounded"
+        <b-card
+          fluid
+          bg-variant="white"
+          border-variant="light"
+          class="shadow p-2 mb-2 rounded text-center"
+          :title="headerFront"
+        >
+          <b-card-text>
+            {{ front }}
+          </b-card-text>
+        </b-card>
+      </div>
+      <div
+        @mouseleave="isToggle = !isToggle"
+        v-show="isToggle"
+        class="animationY flipY"
       >
-        
-          {{back}}
-        
-      </b-card>
-    </div>
+        <b-card
+          fluid
+          border-variant="success"
+          :header="headerBack"
+          header-bg-variant="success"
+          header-text-variant="white"
+          class="shadow p-2 mb-2 rounded"
+        >
+          {{ back }}
+        </b-card>
+      </div>
     </div>
     <div v-else>
       <div
-      @click="isToggle = !isToggle"
-      v-show="!isToggle"
-      class="animation flipX infoCard"
-    >
-      <b-card
-        no-body
-        class="overflow-hidden"
-        style="max-width: 540px;"
-        bg-variant="white"
-        border-variant="white"
+        @click="isToggle = !isToggle"
+        v-show="!isToggle"
+        class="animation flipX infoCard"
       >
-        <b-row no-gutters>
-          <b-col md="6">
-            <b-card-img :src="image" width="128" height="128"></b-card-img>
-          </b-col>
-          <b-col md="6">
-            <b-card-body :title="headerFront">
-              <b-card-text>
-                {{ front }}
-              </b-card-text>
-            </b-card-body>
-          </b-col>
-        </b-row>
-      </b-card>
-    </div>
-    <div
-      @click="isToggle = !isToggle"
-      v-show="isToggle"
-      class="animation flipX infoCard"
-    >
-      <b-card
-        border-variant="success"
-        :header="headerBack"
-        header-bg-variant="success"
-        header-text-variant="white"
-        align="center"
+        <b-card
+          no-body
+          class="overflow-hidden"
+          style="max-width: 540px;"
+          bg-variant="white"
+          border-variant="white"
+        >
+          <b-row no-gutters>
+            <b-col md="6">
+              <b-card-img :src="image" width="128" height="128"></b-card-img>
+            </b-col>
+            <b-col md="6">
+              <b-card-body :title="headerFront">
+                <b-card-text>
+                  {{ front }}
+                </b-card-text>
+              </b-card-body>
+            </b-col>
+          </b-row>
+        </b-card>
+      </div>
+      <div
+        @click="isToggle = !isToggle"
+        v-show="isToggle"
+        class="animation flipX infoCard"
       >
-        <b-list-group>
-          <div v-for="(bk, index) in back" :key="index">
-            <b-list-group-item :id="bk.name" variant="success">
-              <b>{{ bk.name }} </b>
-            </b-list-group-item>
-            <b-list-group-item :id="bk.name" variant="white">
-              Contacto: {{ bk.mail }}
-            </b-list-group-item>
-            <p></p>
-            <b-tooltip
-              :target="bk.name"
-              triggers="hover"
-              variant="info"
-              placement="rightbottom"
-            >
-              {{ bk.contribution }}
-            </b-tooltip>
-          </div>
-        </b-list-group>
-      </b-card>
+        <b-card
+          border-variant="success"
+          :header="headerBack"
+          header-bg-variant="success"
+          header-text-variant="white"
+          align="center"
+        >
+          <b-list-group>
+            <div v-for="(bk, index) in back" :key="index">
+              <b-list-group-item :id="bk.name" variant="success">
+                <b>{{ bk.name }} </b>
+              </b-list-group-item>
+              <b-list-group-item :id="bk.name" variant="white">
+                Contacto: {{ bk.mail }}
+              </b-list-group-item>
+              <p></p>
+              <b-tooltip
+                :target="bk.name"
+                triggers="hover"
+                variant="info"
+                placement="rightbottom"
+              >
+                {{ bk.contribution }}
+              </b-tooltip>
+            </div>
+          </b-list-group>
+        </b-card>
+      </div>
     </div>
-    </div>
-
-
-
-    
   </div>
 </template>
 <script>
@@ -194,23 +188,22 @@ export default {
   animation-name: flipX;
 }
 
-
 @keyframes flipY {
   from {
-    transform: perspective(400px) rotate3d(0, -1, 0, 90deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
     animation-timing-function: ease-in;
     opacity: 0;
   }
   40% {
-    transform: perspective(400px) rotate3d(0, -1, 0, -20deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
     animation-timing-function: ease-in;
   }
   60% {
-    transform: perspective(400px) rotate3d(0, -1, 0, 10deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
     opacity: 1;
   }
   80% {
-    transform: perspective(400px) rotate3d(0, -1, 0, -5deg);
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
   }
   to {
     transform: perspective(400px);

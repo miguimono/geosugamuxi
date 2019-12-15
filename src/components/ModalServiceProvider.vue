@@ -2,65 +2,117 @@
   <div class="modal_serivice_provider">
     <!--Prestador de servicios-->
 
-    <div v-if="this.element != null">
-      <b-modal
-        :id="'e' + iModal"
-        scrollable
-        :title="getTitle"
-        bg-variant="white"
-        border-variant="light"
-        class="shadow p-2 mb-2 rounded"
-      >
-        <template v-slot:modal-header="{ close }">
-          <b-button
-            size="sm"
-            variant="outline-info"
-            @click="helpServiceProvider()"
-            >?</b-button
-          >
-          <h3>{{ getTitle }}</h3>
-        </template>
-
+    <b-modal
+      :id="'sp' + iModal"
+      scrollable
+      :title="getTitle"
+      bg-variant="white"
+      border-variant="light"
+      class="shadow p-2 mb-2 rounded"
+    >
+      <div v-if="this.$store.getters.getServiceProvider">
         <b-card
           bg-variant="white"
           border-variant="light"
           class="shadow p-2 mb-2 rounded"
-          :title="this.element.name"
+          :title="
+            this.$store.getters.getServiceProvider.features[0].properties.name
+          "
           :sub-title="'Prestador de servicios'"
         >
-          <div v-if="this.element.contact_name">
+          <template v-slot:modal-header="{ close }">
+            <b-button
+              size="sm"
+              variant="outline-info"
+              @click="helpServiceProvider()"
+              >?</b-button
+            >
+            <h3>{{ getTitle }}</h3>
+          </template>
+
+          <div
+            v-if="
+              this.$store.getters.getServiceProvider.features[0].properties
+                .contact_name
+            "
+          >
             <b-card
-              :title="this.element.contact_name"
+              :title="
+                this.$store.getters.getServiceProvider.features[0].properties
+                  .contact_name
+              "
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-2 rounded"
             >
               <b-card-text>
-                <div v-if="this.element.contact_cell">
-                  Celular: {{ this.element.contact_cell }}
+                <div
+                  v-if="
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_cell
+                  "
+                >
+                  Celular:
+                  {{
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_cell
+                  }}
                 </div>
-                <div v-if="this.element.contact_phone">
-                  Telefono: {{ this.element.contact_phone }}
+                <div
+                  v-if="
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_phone
+                  "
+                >
+                  Telefono:
+                  {{
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_phone
+                  }}
                 </div>
-                <div v-if="this.element.contact_mail">
-                  Correo: {{ this.element.contact_mail }}
+                <div
+                  v-if="
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_mail
+                  "
+                >
+                  Correo:
+                  {{
+                    this.$store.getters.getServiceProvider.features[0]
+                      .properties.contact_mail
+                  }}
                 </div>
               </b-card-text>
             </b-card>
           </div>
           <p></p>
-          <div v-if="this.element.opening_hours">
+          <div
+            v-if="
+              this.$store.getters.getServiceProvider.features[0].properties
+                .opening_hours
+            "
+          >
             <b-card
               title="Horario"
               bg-variant="white"
               border-variant="light"
               class="shadow p-2 mb-2 rounded"
             >
-              <b-card-text>{{ this.element.opening_hours }} </b-card-text>
+              <b-card-text
+                >{{
+                  this.$store.getters.getServiceProvider.features[0].properties
+                    .opening_hours
+                }}
+              </b-card-text>
             </b-card>
           </div>
           <p></p>
-          <div v-if="this.element.tourist_plan == null">
+          <div
+            v-if="
+              this.$store.getters.getServiceProvider.features[0].properties
+                .tourist_plan == null
+            "
+          >
             <b-card
               title="Planes turisticos"
               bg-variant="white"
@@ -70,7 +122,8 @@
               <b-list-group>
                 <div
                   :key="index"
-                  v-for="(tourist_plan, index) in this.element.tourist_plan"
+                  v-for="(tourist_plan, index) in this.$store.getters
+                    .getServiceProvider.features[0].properties.tourist_plan"
                 >
                   <b-list-group-item>{{
                     tourist_plan.name_tourist_plan
@@ -89,7 +142,8 @@
             <b-list-group>
               <div
                 :key="index"
-                v-for="(service, index) in this.element.services"
+                v-for="(service, index) in this.$store.getters
+                  .getServiceProvider.features[0].properties.services"
               >
                 <b-list-group-item variant="success">{{
                   service.name_service
@@ -99,17 +153,15 @@
             </b-list-group>
           </b-card>
         </b-card>
+      </div>
 
-        <template v-slot:modal-footer="{ ok, cancel, hide }">
-          <b-button size="sm" variant="success" @click="setElement()"
-            >Ver detalles</b-button
-          >
-          <b-button size="sm" variant="danger" @click="cancel()"
-            >Volver</b-button
-          >
-        </template>
-      </b-modal>
-    </div>
+      <template v-slot:modal-footer="{ ok, cancel, hide }">
+        <b-button size="sm" variant="success" @click="setElement()"
+          >Ver detalles</b-button
+        >
+        <b-button size="sm" variant="danger" @click="cancel()">Volver</b-button>
+      </template>
+    </b-modal>
   </div>
 </template>
 
@@ -131,7 +183,7 @@ export default {
   },
   methods: {
     setElement: function() {
-      this.$router.push("service_provider/" + this.element.name);
+      this.$router.push("service_provider/" + this.$store.getters.getServiceProvider.features[0].properties.name);
     },
     helpServiceProvider() {
       this.$bvToast.toast(`${this.help_ServiceProvider2}`, {
@@ -148,37 +200,9 @@ export default {
         });
     }
   },
-  mounted() {},
-  created() {
-    for (
-      let index = 0;
-      index < this.getServiceProviders.features.length;
-      index++
-    ) {
-      if (
-        this.getServiceProviders.features[index].properties
-          .id_service_provider == this.getIdElement
-      ) {
-        this.element = this.getServiceProviders.features[index].properties;
-      }
-    }
-  },
-  updated() {
-    for (
-      let index = 0;
-      index < this.getServiceProviders.features.length;
-      index++
-    ) {
-      if (
-        this.getServiceProviders.features[index].properties
-          .id_service_provider == this.getIdElement
-      ) {
-        this.element = this.getServiceProviders.features[index].properties;
-      }
-    }
-  },
+
   computed: {
-    ...mapGetters(["getTitle", "getIdElement", "getServiceProviders"])
+    ...mapGetters(["getTitle", "getServiceProviders"])
   }
 };
 </script>

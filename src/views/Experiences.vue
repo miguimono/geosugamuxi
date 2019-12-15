@@ -1,10 +1,7 @@
 <template>
   <div class="experiences">
     <b-container fluid class="p-2 bg-light">
-      <div v-if="this.loading" class="mx-auto bg-success" style="width: 100px;">
-        <Circle8></Circle8>
-      </div>
-      <div v-else>
+      <div v-if="this.$store.getters.getExperiencesBasic">
         <b-card
           bg-variant="white"
           border-variant="light"
@@ -19,7 +16,11 @@
             identidad y la apropiación espacial en una región.
           </b-card-text>
 
-          <div v-for="(experience, index) in this.experiences" :key="index">
+          <div
+            v-for="(experience, index) in this.$store.getters
+              .getExperiencesBasic"
+            :key="index"
+          >
             <b-card
               no-body
               bg-variant="white"
@@ -39,7 +40,7 @@
                 role="tabpanel"
               >
                 <b-card-text>
-                  <div class="p-2">
+                  <div class="p-2" style="float: right;">
                     <b-button
                       variant="outline-success"
                       pill
@@ -115,8 +116,7 @@
                             @click="goToService(service.name_service)"
                             :id="service.name_service"
                           >
-                            El servicio de {{ service.name_service }} cuenta con
-                            {{ service.description }}
+                            Servicio de {{ service.name_service }} 
                           </b-button>
                           <b-tooltip
                             variant="info"
@@ -151,9 +151,7 @@ export default {
   name: "Experiences",
   data() {
     return {
-      name: "Experiencias",
-      experiences: null,
-      loading: false
+      name: "Experiencias"
     };
   },
   components: {
@@ -164,7 +162,7 @@ export default {
       window.history.back();
     },
     goToHeritageSite: function(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadHeritageSitesById", id);
       this.$router.push("/heritage_site/" + name);
     },
     goToService(name) {
@@ -179,17 +177,13 @@ export default {
       }
     },
     goToExperience(id, name) {
-      this.$store.commit("setIdElement", id);
+      this.$store.commit("loadExperienceById", id);
       this.$router.push("/experience/" + name);
     }
   },
-  created: function() {
-    try {
-      this.experiences = this.$store.getters.getExperiences;
-      this.loading = false;
-    } catch (error) {
-      this.loading = true;
-    }
+
+  beforeCreate: function() {
+    this.$store.commit("loadExperiencesBasic");
   }
 };
 </script>
