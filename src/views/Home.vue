@@ -35,7 +35,7 @@
           >
             <section class="hero2" id="conoce">
               <div class="hero-inner">
-                <h1>Aprende de la riquesa cultural</h1>
+                <h1>Diálogo entre culturas, aprendiendo con las personas</h1>
                 <h2>Mira quiénes pueden guiar tu recorrido...</h2>
                 <div>
                   <a href="service_providers" class="btn2">Conócelos</a>
@@ -53,7 +53,7 @@
             <InfoCard
               :type="true"
               :headerFront="this.$store.getters.getExperience[0].name"
-              front="¡Experiencia recomoendada para tí"
+              front="¡Experiencia recomendada para tí"
               :headerBack="this.$store.getters.getExperience[0].slogan"
               :back="this.$store.getters.getExperience[0].short_history"
             >

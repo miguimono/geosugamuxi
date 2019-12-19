@@ -17,7 +17,6 @@ export default new Vuex.Store({
 
     photos_user_id: "185962838@N05",
     photos_api_key_public: "5fe7d4c13d41f94688e468a82131ce67",
-    photos_api_key_private: "70e8e1552e026a58",
     photos: null,
  
     service_providers: null,
@@ -408,7 +407,7 @@ export default new Vuex.Store({
               method: "flickr.photosets.getPhotos",
               api_key: state.photos_api_key_public,
               photoset_id: gallery_id,
-              extras: "url_n, owner_name",
+              extras: "url_l, owner_name",
               page: 1,
               format: "json",
               nojsoncallback: 1,
@@ -561,7 +560,7 @@ export default new Vuex.Store({
           images.push({
             title: state.photos[index].title,
             description: state.photos[index].ownername,
-            href: state.photos[index].url_n
+            href: state.photos[index].url_l
           });
         }
         return images;

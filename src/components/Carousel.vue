@@ -14,7 +14,7 @@
             <b-carousel-slide
               class="d-block img-fluid w-100"
               :caption="image.title"
-              :img-src="image.url_n"
+              :img-src="image.url_l"
               :text="image.ownername"
             ></b-carousel-slide>
           </div>

@@ -9,169 +9,50 @@
       "back": [
         {
           "name": "Miguel Angel Niño Suárez",
-          "mail": "miguimono@gmail.com",
-          "contribution": "Desarrollador del geoportal para el trabajo de grado 'Geoportal de las experiencias de turismo rural de la provincia Sugamuxi'"
+          "mail": "miguimono@gmail.com"
         },
         {
           "name": "Gustavo Cáceres Castellanos",
-          "mail": "gustavo.caceres@uptc.edu.co",
-          "contribution": "Director del trabajo de grado 'Geoportal de las experiencias de turismo rural de la provincia Sugamuxi'"
+          "mail": "gustavo.caceres@uptc.edu.co"
         }
       ]
     },
     {
-      "front": "Descripcion2",
-      "headerFront": "Titulo2",
-      "image": "muisuata",
-      "headerBack": "Descripcion2",
-      "back": [
-        {
-          "name": "Participante3",
-          "mail": "correo@gmail.com3",
-          "contribution": "Contribucion3"
-        },
-        {
-          "name": "Participante4",
-          "mail": "correo@gmail.com4",
-          "contribution": "Contribucion4"
-        },
-        {
-          "name": "Participante5",
-          "mail": "correo@gmail.com5",
-          "contribution": "Contribucion5"
-        },
-        {
-          "name": "Participante4",
-          "mail": "correo@gmail.com4",
-          "contribution": "Contribucion4"
-        }
-      ]
+      "front": "Grupo de Investigación para la Animación Cultural",
+      "headerFront": "Muisuata",
+      "image": "muisuata"
     },
     {
-      "front": "Descripcion3",
-      "headerFront": "Titulo3",
-      "image": "epg",
-      "headerBack": "Descripcion3",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "headerFront": "Estudios de postgrados en geografía",
+      "image": "epg"
     },
     {
-      "front": "Descripcion4",
-      "headerFront": "Titulo4",
-      "image": "patrimonio_cultural",
-      "headerBack": "Descripcion4",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "headerFront": "Maestría en patrimonio cultural",
+      "image": "patrimonio_cultural"
     },
     {
-      "front": "Descripcion5",
-      "headerFront": "Titulo5",
-      "image": "sena",
-      "headerBack": "Descripcion5",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "front": "Servicio Nacional de Aprendizaje", 
+      "headerFront": "SENA",
+      "image": "sena"
     },
     {
-      "front": "Descripcion6",
-      "headerFront": "Titulo6",
-      "image": "gobernacion_boyaca",
-      "headerBack": "Descripcion6",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      
+      "headerFront": "Gobernación de Boyacá",
+      "image": "gobernacion_boyaca"
     },
     {
-      "front": "Descripcion7",
-      "headerFront": "Titulo7",
-      "image": "boyaca_es_para_vivirla",
-      "headerBack": "Descripcion7",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "headerFront": "Secretaría de turismo de Boyacá",
+      "image": "boyaca_es_para_vivirla"
     },
     {
-      "front": "Descripcion8",
-      "headerFront": "Titulo8",
-      "image": "uptc",
-      "headerBack": "Descripcion8",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "front": "Universidad Pedagógica y Tecnológica de Colombia",
+      "headerFront": "UPTC",
+      "image": "uptc"
     },
     {
-      "front": "Descripcion9",
-      "headerFront": "Titulo9",
-      "image": "logo",
-      "headerBack": "Descripcion9",
-      "back": [
-        {
-          "name": "Participante1",
-          "mail": "correo@gmail.com1",
-          "contribution": "Contribucion1"
-        },
-        {
-          "name": "Participante2",
-          "mail": "correo@gmail.com2",
-          "contribution": "Contribucion2"
-        }
-      ]
+      "front": "Espacialidad del turismo rural Provincia de Sugamuxi",
+      "headerFront": "Experiencia rural Sugamuxi",
+      "image": "logo"
     }
   ]
 }

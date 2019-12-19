@@ -18,7 +18,7 @@
           </h5>
         </b-card-text>
         <b-card-text>
-          El desarrollo fue realizado en fomra conjunta por estudiantes,
+          El desarrollo fue realizado en forma conjunta por estudiantes,
           docentes, administrativos y colaboradores de diferentes carreras,
           aplicando múltiples técnicas de propias de su especialidad.
         </b-card-text>

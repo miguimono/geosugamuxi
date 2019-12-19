@@ -10,7 +10,7 @@ npm install vue
 npm install -g @vue/cli
 npm install -g npm  Actualizar npm
 
-vue create geoportal1
+vue create geoportal
 install babel, vuex, router
 npm install vue bootstrap-vue bootstrap
 npm install --save axios vue-axios
