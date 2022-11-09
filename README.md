@@ -21,5 +21,5 @@ npm run serve
 ```
 ### Version
 ```
-1.01
+1.02
 ```
